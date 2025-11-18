@@ -1,0 +1,58 @@
+site_name: Veilgate Documentation
+site_url: https://blackmasoon.github.io/veilgate-releases/
+repo_name: blackMasoon/veilgate
+repo_url: https://github.com/blackMasoon/veilgate
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: orange
+    - scheme: slate
+      primary: deep purple
+      accent: orange
+
+nav:
+  - Overview:
+      - "What is Veilgate?": overview/index.md
+  - Concepts:
+      - "Core concepts": concepts/index.md
+      - Routes: concepts/routes.md
+      - Upstreams: concepts/upstreams.md
+      - "Policies: auth & rate limiting": concepts/policies.md
+      - "Admin API & dashboard": concepts/admin-api.md
+      - "MCP tools": concepts/mcp.md
+  - How-to:
+      - "Quickstart – Docker + docker-compose": how-to/quickstart-docker-compose.md
+      - "How-to index": how-to/index.md
+  - Reference:
+      - "Reference overview": reference/index.md
+      - Configuration: reference/configuration.md
+      - "Admin API": reference/admin-api.md
+      - "MCP configuration": reference/mcp.md
+      - "CLI reference": reference/cli.md
+  - Contributing:
+      - "Contributing to docs": CONTRIBUTING-DOCS.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - def_list
+  - footnotes
