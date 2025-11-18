@@ -1,0 +1,77 @@
+info:
+    description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
+    title: Veilgate Admin API
+    version: 0.1.11
+openapi: 3.0.0
+paths:
+    /admin/mcp/tools:
+        get:
+            description: Returns MCP tools and their mappings, once MCP configuration is wired.
+            operationId: getAdminMCPTools
+            responses:
+                "200":
+                    description: Successful response.
+            summary: List MCP tools
+            tags:
+                - admin
+                - mcp
+    /admin/policies:
+        get:
+            description: Returns auth and rate-limit policies configured for the gateway.
+            operationId: getAdminPolicies
+            responses:
+                "200":
+                    description: Successful response.
+            summary: List policies
+            tags:
+                - admin
+    /admin/routes:
+        get:
+            description: Returns the effective route configuration, including upstream associations and attached policies.
+            operationId: getAdminRoutes
+            responses:
+                "200":
+                    description: Successful response.
+            summary: List routes
+            tags:
+                - admin
+    /admin/upstreams:
+        get:
+            description: Returns upstream pools and their endpoints, including basic health information.
+            operationId: getAdminUpstreams
+            responses:
+                "200":
+                    description: Successful response.
+            summary: List upstreams
+            tags:
+                - admin
+    /healthz:
+        get:
+            description: Basic liveness endpoint used by orchestration systems to check that Veilgate is running.
+            operationId: getHealthz
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Liveness probe
+            tags:
+                - health
+    /metrics:
+        get:
+            description: Exposes Prometheus-compatible metrics describing gateway and upstream behavior.
+            operationId: getMetrics
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Prometheus metrics
+            tags:
+                - metrics
+    /readyz:
+        get:
+            description: Readiness endpoint indicating whether Veilgate has loaded configuration and is ready to serve traffic.
+            operationId: getReadyz
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Readiness probe
+            tags:
+                - health
