@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.1.18
+    version: 0.1.19
 openapi: 3.0.0
 paths:
     /admin/mcp/tools:
@@ -105,6 +105,29 @@ paths:
             tags:
                 - admin
                 - security
+    /admin/stats/api-keys:
+        get:
+            description: Returns basic usage statistics per API key, such as request counts and latency.
+            operationId: getAdminAPIKeyStats
+            responses:
+                "200":
+                    description: Successful response.
+            summary: API key stats
+            tags:
+                - admin
+                - stats
+                - security
+    /admin/stats/routes:
+        get:
+            description: Returns basic usage statistics per route, such as request counts and latency.
+            operationId: getAdminRouteStats
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Route stats
+            tags:
+                - admin
+                - stats
     /admin/summary:
         get:
             description: Returns basic summary statistics such as total routes and upstreams.
