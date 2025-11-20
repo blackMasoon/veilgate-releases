@@ -70,6 +70,50 @@ Typical things you may want to adjust:
 - `security.api_keys` – API keys (replace `demo-secret-key` with your own),
 - `rate_limit` – limits per route / IP / API key.
 
+#### Initial admin user & dashboard login
+
+To use the built‑in dashboard for managing routes, upstreams and API keys, you
+need an **admin user**. There are two recommended ways to bootstrap it:
+
+1. **Via configuration file (hash only, no plaintext):**
+
+   In `config/veilgate.yaml` add:
+
+   ```yaml
+   admin_auth:
+     store_path: ./data/admin-users.db         # optional, default: ./data/admin-users.db
+     seed_admin_user: admin                    # user name
+     seed_admin_password_hash: "<bcrypt-hash>" # bcrypt hash of the initial password
+   ```
+
+   On first start, if no admin users exist yet, Veilgate creates this user and
+   stores it in a small embedded database at `store_path`.
+
+2. **Via environment variables (convenient for local/docker‑compose dev):**
+
+   Instead of hard‑coding the password hash in YAML, you can seed the first
+   admin user from environment variables. For example, in your
+   `docker-compose.yml`:
+
+   ```yaml
+   services:
+     veilgate:
+       environment:
+         VEILGATE_DEV_ADMIN_USER: admin
+         VEILGATE_DEV_ADMIN_PASSWORD: admin
+         VEILGATE_ADMIN_SESSION_SECRET: "change-me-long-random"
+   ```
+
+   On first start, if the admin store is empty:
+
+   - `VEILGATE_DEV_ADMIN_USER` and `VEILGATE_DEV_ADMIN_PASSWORD` are used to
+     create an `admin` user,
+   - the password is **hashed with bcrypt at startup**; only the hash is stored
+     on disk.
+
+After bootstrapping, visit `http://localhost:9090/dashboard` and log in with the
+admin credentials you configured above.
+
 ### Reloading configuration without restart (hot reload)
 
 Veilgate supports **configuration hot reload** – instead of restarting the

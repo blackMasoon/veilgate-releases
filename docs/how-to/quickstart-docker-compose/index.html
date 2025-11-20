@@ -843,6 +843,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-admin-user-dashboard-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial admin user &amp; dashboard login
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1319,6 +1336,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-admin-user-dashboard-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial admin user &amp; dashboard login
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1473,6 +1507,42 @@ docker-compose.</p>
 <li><code>security.api_keys</code> – API keys (replace <code>demo-secret-key</code> with your own),</li>
 <li><code>rate_limit</code> – limits per route / IP / API key.</li>
 </ul>
+<h4 id="initial-admin-user-dashboard-login">Initial admin user &amp; dashboard login<a class="headerlink" href="#initial-admin-user-dashboard-login" title="Permanent link">&para;</a></h4>
+<p>To use the built‑in dashboard for managing routes, upstreams and API keys, you
+need an <strong>admin user</strong>. There are two recommended ways to bootstrap it:</p>
+<ol>
+<li><strong>Via configuration file (hash only, no plaintext):</strong></li>
+</ol>
+<p>In <code>config/veilgate.yaml</code> add:</p>
+<p><code>yaml
+   admin_auth:
+     store_path: ./data/admin-users.db         # optional, default: ./data/admin-users.db
+     seed_admin_user: admin                    # user name
+     seed_admin_password_hash: "&lt;bcrypt-hash&gt;" # bcrypt hash of the initial password</code></p>
+<p>On first start, if no admin users exist yet, Veilgate creates this user and
+   stores it in a small embedded database at <code>store_path</code>.</p>
+<ol>
+<li><strong>Via environment variables (convenient for local/docker‑compose dev):</strong></li>
+</ol>
+<p>Instead of hard‑coding the password hash in YAML, you can seed the first
+   admin user from environment variables. For example, in your
+   <code>docker-compose.yml</code>:</p>
+<p><code>yaml
+   services:
+     veilgate:
+       environment:
+         VEILGATE_DEV_ADMIN_USER: admin
+         VEILGATE_DEV_ADMIN_PASSWORD: admin
+         VEILGATE_ADMIN_SESSION_SECRET: "change-me-long-random"</code></p>
+<p>On first start, if the admin store is empty:</p>
+<ul>
+<li><code>VEILGATE_DEV_ADMIN_USER</code> and <code>VEILGATE_DEV_ADMIN_PASSWORD</code> are used to
+     create an <code>admin</code> user,</li>
+<li>the password is <strong>hashed with bcrypt at startup</strong>; only the hash is stored
+     on disk.</li>
+</ul>
+<p>After bootstrapping, visit <code>http://localhost:9090/dashboard</code> and log in with the
+admin credentials you configured above.</p>
 <h3 id="reloading-configuration-without-restart-hot-reload">Reloading configuration without restart (hot reload)<a class="headerlink" href="#reloading-configuration-without-restart-hot-reload" title="Permanent link">&para;</a></h3>
 <p>Veilgate supports <strong>configuration hot reload</strong> – instead of restarting the
 process or container, you can reload <code>veilgate.yaml</code> on the fly. This means:</p>

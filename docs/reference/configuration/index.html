@@ -886,6 +886,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -902,6 +920,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#admin_auth-admin-users-dashboard-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        admin_auth – admin users &amp; dashboard login
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1106,6 +1154,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#admin_auth-admin-users-dashboard-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        admin_auth – admin users &amp; dashboard login
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1129,7 +1196,7 @@
 <p>High‑level sections include:</p>
 <ul>
 <li><code>server</code> – listener addresses, timeouts, connection limits.</li>
-<li><code>admin</code> – admin/metrics/dashboard listener and authentication.</li>
+<li><code>admin</code> – admin/metrics/dashboard listener.</li>
 <li><code>logging</code> – log level, format and outputs.</li>
 <li><code>metrics</code> – Prometheus metrics settings.</li>
 <li><code>upstreams</code> – upstream pools and their endpoints.</li>
@@ -1137,8 +1204,36 @@
 <li><code>security</code> – API keys, JWT issuers and related options.</li>
 <li><code>rate_limit</code> – rate limit policies and defaults.</li>
 <li><code>mcp</code> – MCP tool definitions and mappings (once configured).</li>
+<li><code>admin_auth</code> – admin users, sessions and admin API rate‑limits.</li>
 </ul>
 <p>See example configs under <code>examples/</code> and in release packages for concrete values.</p>
+<h3 id="admin_auth-admin-users-dashboard-login"><code>admin_auth</code> – admin users &amp; dashboard login<a class="headerlink" href="#admin_auth-admin-users-dashboard-login" title="Permanent link">&para;</a></h3>
+<p>The optional <code>admin_auth</code> section controls how admin users are stored and how
+the dashboard <code>/dashboard</code> and admin API <code>/admin/*</code> are protected.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">admin_auth</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">store_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data/admin-users.db</span>
+<span class="w">  </span><span class="nt">seed_admin_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">  </span><span class="nt">seed_admin_password_hash</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;bcrypt-hash&gt;&quot;</span>
+<span class="w">  </span><span class="c1"># or, to read plaintext from an env var and hash it at startup:</span>
+<span class="w">  </span><span class="c1"># seed_admin_password_env: VEILGATE_ADMIN_BOOTSTRAP_PASSWORD</span>
+<span class="w">  </span><span class="nt">rate_limit</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">requests_per_second</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">burst</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</code></pre></div>
+
+<p>Key fields:</p>
+<ul>
+<li><code>store_path</code> – path to the embedded admin user database (bbolt file). If not
+  set, a sensible default under the process working directory is used.</li>
+<li><code>seed_admin_user</code> / <code>seed_admin_password_hash</code> – optional initial admin
+  credentials; the password must be provided as a bcrypt hash.</li>
+<li><code>seed_admin_password_env</code> – optional name of an environment variable holding
+  the <strong>plaintext</strong> password to be hashed at startup (convenient for dev/test).</li>
+<li><code>rate_limit</code> – basic rate limit settings for the admin API (same shape as
+  <code>rate_limit.default</code> used for routes).</li>
+</ul>
 
 
 

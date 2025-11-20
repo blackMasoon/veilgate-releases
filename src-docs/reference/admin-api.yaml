@@ -1,9 +1,31 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.1.19
+    version: 0.1.21
 openapi: 3.0.0
 paths:
+    /admin/auth/login:
+        post:
+            description: Authenticates an admin user and establishes a session via an HTTP-only cookie.
+            operationId: postAdminAuthLogin
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Admin login
+            tags:
+                - admin
+                - auth
+    /admin/auth/logout:
+        post:
+            description: Terminates the current admin session by clearing the session cookie.
+            operationId: postAdminAuthLogout
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Admin logout
+            tags:
+                - admin
+                - auth
     /admin/mcp/tools:
         get:
             description: Returns MCP tools and their mappings, once MCP configuration is wired.

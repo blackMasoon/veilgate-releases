@@ -1131,6 +1131,8 @@
 <li><code>GET /healthz</code> – basic liveness probe.</li>
 <li><code>GET /readyz</code> – readiness probe.</li>
 <li><code>GET /metrics</code> – Prometheus metrics.</li>
+<li><code>POST /admin/auth/login</code> – authenticate an admin user and establish a session (HTTP-only cookie).</li>
+<li><code>POST /admin/auth/logout</code> – terminate the current admin session.</li>
 <li><code>GET /admin/routes</code> – effective routes and their configuration.</li>
 <li><code>POST /admin/routes</code> – create a new route and apply it at runtime.</li>
 <li><code>PUT /admin/routes/{id}</code> – update an existing route.</li>
@@ -1144,6 +1146,11 @@
 </ul>
 <p>The full, structured definition of the admin API is generated as an OpenAPI document
 and published in the external documentation site.</p>
+<p>Most <code>/admin/*</code> endpoints (including the dashboard under <code>/dashboard</code>) require a
+valid admin session and are <strong>rate-limited per client IP</strong> to protect against abuse.
+Errors are returned as JSON objects of the form:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;human readable message&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
 
 
 
