@@ -3,8 +3,8 @@ site_url: https://blackmasoon.github.io/veilgate-releases/
 repo_name: blackMasoon/veilgate
 repo_url: https://github.com/blackMasoon/veilgate
 
-docs_dir: docs
-site_dir: .
+docs_dir: src-docs
+site_dir: docs
 
 theme:
   name: material
