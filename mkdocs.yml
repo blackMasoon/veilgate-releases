@@ -4,6 +4,7 @@ repo_name: blackMasoon/veilgate
 repo_url: https://github.com/blackMasoon/veilgate
 
 docs_dir: docs
+site_dir: .
 
 theme:
   name: material
