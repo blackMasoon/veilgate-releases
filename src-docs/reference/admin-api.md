@@ -13,6 +13,9 @@ Endpoints include:
 - `GET /readyz` – readiness probe.
 - `GET /metrics` – Prometheus metrics.
 - `GET /admin/routes` – effective routes and their configuration.
+- `POST /admin/routes` – create a new route and apply it at runtime.
+- `PUT /admin/routes/{id}` – update an existing route.
+- `DELETE /admin/routes/{id}` – delete an existing route.
 - `GET /admin/upstreams` – upstream pools and health.
 - `GET /admin/policies` – auth and rate‑limit policies.
 - `GET /admin/mcp/tools` – MCP tools and mappings (once configured).

@@ -628,6 +628,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin API & dashboard
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -644,6 +662,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-management-capabilities-crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard management capabilities (CRUD)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1106,6 +1154,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-management-capabilities-crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard management capabilities (CRUD)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1133,14 +1200,54 @@ than user traffic and exposes:</p>
 <li>JSON admin endpoints under <code>/admin/...</code>,</li>
 <li>built‑in dashboard under <code>/dashboard</code>.</li>
 </ul>
-<p>The dashboard is a React SPA that consumes the admin JSON API to display:</p>
+<p>The dashboard is a React SPA that consumes the admin JSON API to:</p>
 <ul>
-<li>routes and their policies,</li>
-<li>upstream pools and health,</li>
-<li>MCP tools and their mappings (once configured),</li>
-<li>summary statistics.</li>
+<li>display routes and their policies,</li>
+<li>display upstream pools and health,</li>
+<li>display MCP tools and their mappings (once configured),</li>
+<li>display summary statistics,</li>
+<li><strong>manage configuration in place</strong> (when admin write access is enabled).</li>
 </ul>
-<p>See the <a href="../../reference/admin-api/">Admin API reference</a> for endpoint‑level details.</p>
+<h2 id="dashboard-management-capabilities-crud">Dashboard management capabilities (CRUD)<a class="headerlink" href="#dashboard-management-capabilities-crud" title="Permanent link">&para;</a></h2>
+<p>When the admin API is exposed with write access, the dashboard can:</p>
+<ul>
+<li><strong>Routes</strong></li>
+<li>List all effective routes (as before).</li>
+<li><strong>Create</strong> new routes (<code>POST /admin/routes</code>) by filling in ID, method, host, path and upstream.</li>
+<li><strong>Edit</strong> existing routes (<code>PUT /admin/routes/{id}</code>) – core routing fields can be adjusted at runtime.</li>
+<li><strong>Delete</strong> routes (<code>DELETE /admin/routes/{id}</code>) – removed routes stop matching immediately.</li>
+<li>
+<p>Advanced auth and rate‑limit options are still primarily configured via YAML, but are validated and enforced on the updated runtime after each change.</p>
+</li>
+<li>
+<p><strong>Upstreams</strong></p>
+</li>
+<li>List upstream pools and endpoints.</li>
+<li><strong>Create</strong> new upstreams (<code>POST /admin/upstreams</code>) by specifying an ID and one or more endpoint URLs.</li>
+<li><strong>Edit</strong> upstream endpoints (<code>PUT /admin/upstreams/{id}</code>) – change or add/remove backend URLs.</li>
+<li>
+<p><strong>Delete</strong> upstreams (<code>DELETE /admin/upstreams/{id}</code>); validation prevents removing upstreams still referenced by routes.</p>
+</li>
+<li>
+<p><strong>API keys</strong></p>
+</li>
+<li>View API keys defined in configuration (<code>security.api_keys</code>) as part of the policies view.</li>
+<li><strong>Generate</strong> new API keys via the admin API (<code>POST /admin/security/api-keys</code>); the dashboard:<ul>
+<li>shows the generated key <strong>only once</strong> so it can be copied,</li>
+<li>updates the running configuration and key store immediately.</li>
+</ul>
+</li>
+<li><strong>Activate/deactivate</strong> keys (<code>PUT /admin/security/api-keys/{id}</code>) by toggling their <code>active</code> status without removing them from history.</li>
+<li><strong>Delete</strong> keys (<code>DELETE /admin/security/api-keys/{id}</code>) so they can no longer be used.</li>
+</ul>
+<p>All write operations go through the same safe flow:</p>
+<ol>
+<li>The admin server applies the change to an in‑memory copy of the configuration.</li>
+<li>The new config is validated against the same rules as the file‑based config.</li>
+<li>Runtime components (upstream registry, auth, rate limiting, router) are rebuilt.</li>
+<li>If everything succeeds, the new runtime is atomically swapped in; otherwise the dashboard shows a validation error and the previous config stays active.</li>
+</ol>
+<p>See the <a href="../../reference/admin-api/">Admin API reference</a> for endpoint‑level details and the write operations exposed under <code>/admin/routes</code>, <code>/admin/upstreams</code> and <code>/admin/security/api-keys</code>.</p>
 
 
 

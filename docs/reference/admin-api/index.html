@@ -1132,6 +1132,9 @@
 <li><code>GET /readyz</code> – readiness probe.</li>
 <li><code>GET /metrics</code> – Prometheus metrics.</li>
 <li><code>GET /admin/routes</code> – effective routes and their configuration.</li>
+<li><code>POST /admin/routes</code> – create a new route and apply it at runtime.</li>
+<li><code>PUT /admin/routes/{id}</code> – update an existing route.</li>
+<li><code>DELETE /admin/routes/{id}</code> – delete an existing route.</li>
 <li><code>GET /admin/upstreams</code> – upstream pools and health.</li>
 <li><code>GET /admin/policies</code> – auth and rate‑limit policies.</li>
 <li><code>GET /admin/mcp/tools</code> – MCP tools and mappings (once configured).</li>

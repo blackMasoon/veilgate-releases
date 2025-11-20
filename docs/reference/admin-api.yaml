@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.1.17
+    version: 0.1.18
 openapi: 3.0.0
 paths:
     /admin/mcp/tools:
@@ -35,6 +35,76 @@ paths:
             summary: List routes
             tags:
                 - admin
+        post:
+            description: Creates a new route and applies the updated configuration at runtime.
+            operationId: postAdminRoutes
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Create route
+            tags:
+                - admin
+    /admin/routes/{id}:
+        delete:
+            description: Deletes an existing route identified by ID and applies the updated configuration at runtime.
+            operationId: deleteAdminRoute
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Delete route
+            tags:
+                - admin
+        put:
+            description: Updates an existing route identified by ID and applies the updated configuration at runtime.
+            operationId: putAdminRoute
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Update route
+            tags:
+                - admin
+    /admin/security/api-keys:
+        get:
+            description: Returns API keys managed via the admin API, including basic metadata.
+            operationId: getAdminAPIKeys
+            responses:
+                "200":
+                    description: Successful response.
+            summary: List API keys
+            tags:
+                - admin
+                - security
+        post:
+            description: Generates a new API key, returns it once, and applies it to the running configuration.
+            operationId: postAdminAPIKeys
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Create API key
+            tags:
+                - admin
+                - security
+    /admin/security/api-keys/{id}:
+        delete:
+            description: Deletes an existing API key identified by ID from the running configuration.
+            operationId: deleteAdminAPIKey
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Delete API key
+            tags:
+                - admin
+                - security
+        put:
+            description: Updates metadata or active status of an existing API key identified by ID.
+            operationId: putAdminAPIKey
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Update API key
+            tags:
+                - admin
+                - security
     /admin/summary:
         get:
             description: Returns basic summary statistics such as total routes and upstreams.
@@ -53,6 +123,34 @@ paths:
                 "200":
                     description: Successful response.
             summary: List upstreams
+            tags:
+                - admin
+        post:
+            description: Creates a new upstream pool with endpoints and applies the updated configuration at runtime.
+            operationId: postAdminUpstreams
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Create upstream
+            tags:
+                - admin
+    /admin/upstreams/{id}:
+        delete:
+            description: Deletes an upstream pool identified by ID and applies the updated configuration at runtime.
+            operationId: deleteAdminUpstream
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Delete upstream
+            tags:
+                - admin
+        put:
+            description: Updates endpoints of an existing upstream pool identified by ID and applies the updated configuration at runtime.
+            operationId: putAdminUpstream
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Update upstream
             tags:
                 - admin
     /healthz:
