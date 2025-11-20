@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.1.15
+    version: 0.1.16
 openapi: 3.0.0
 paths:
     /admin/mcp/tools:
