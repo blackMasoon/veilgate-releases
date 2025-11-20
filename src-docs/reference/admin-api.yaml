@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.1.16
+    version: 0.1.17
 openapi: 3.0.0
 paths:
     /admin/mcp/tools:
@@ -33,6 +33,16 @@ paths:
                 "200":
                     description: Successful response.
             summary: List routes
+            tags:
+                - admin
+    /admin/summary:
+        get:
+            description: Returns basic summary statistics such as total routes and upstreams.
+            operationId: getAdminSummary
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Gateway summary
             tags:
                 - admin
     /admin/upstreams:

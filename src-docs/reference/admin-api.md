@@ -16,6 +16,7 @@ Endpoints include:
 - `GET /admin/upstreams` – upstream pools and health.
 - `GET /admin/policies` – auth and rate‑limit policies.
 - `GET /admin/mcp/tools` – MCP tools and mappings (once configured).
+- `GET /admin/summary` – basic gateway summary (total routes and upstreams).
 
 The full, structured definition of the admin API is generated as an OpenAPI document
 and published in the external documentation site.
