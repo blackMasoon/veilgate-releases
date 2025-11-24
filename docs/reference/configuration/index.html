@@ -937,6 +937,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#logging-request-correlation-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging – request &amp; correlation IDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-auth-rate-limit-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics – auth &amp; rate-limit counters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#admin_auth-admin-users-dashboard-login" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1161,6 +1183,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#logging-request-correlation-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging – request &amp; correlation IDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-auth-rate-limit-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics – auth &amp; rate-limit counters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#admin_auth-admin-users-dashboard-login" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1207,6 +1251,31 @@
 <li><code>admin_auth</code> – admin users, sessions and admin API rate‑limits.</li>
 </ul>
 <p>See example configs under <code>examples/</code> and in release packages for concrete values.</p>
+<h3 id="logging-request-correlation-ids">Logging – request &amp; correlation IDs<a class="headerlink" href="#logging-request-correlation-ids" title="Permanent link">&para;</a></h3>
+<p>Veilgate automatically ensures every incoming request carries a <code>request_id</code> for
+consistent debugging:</p>
+<ul>
+<li>Incoming <code>X-Request-ID</code> headers are respected; if missing, the gateway
+  generates a new opaque ID and returns it via the same header.</li>
+<li><code>X-Correlation-ID</code> headers are copied through unchanged so upstream systems
+  can stitch together multi-hop traces.</li>
+<li>Both values are stored in the request context and emitted with every structured
+  log entry (<code>request_id</code>, <code>correlation_id</code> fields), making it easy to filter
+  logs per call chain.</li>
+</ul>
+<p>No extra configuration is required beyond enabling the default logging
+middleware; customise formats and levels via the <code>logging</code> section as before.</p>
+<h3 id="metrics-auth-rate-limit-counters">Metrics – auth &amp; rate-limit counters<a class="headerlink" href="#metrics-auth-rate-limit-counters" title="Permanent link">&para;</a></h3>
+<p>In addition to the core HTTP metrics, Veilgate now exports dedicated security
+counters whenever <code>metrics</code> are enabled:</p>
+<ul>
+<li><code>veilgate_auth_failures_total{route_id,reason}</code> counts API key and JWT
+  failures. <code>reason</code> is either <code>api_key</code>, <code>jwt</code>, or <code>unknown</code>.</li>
+<li><code>veilgate_ratelimit_rejections_total{route_id,scope}</code> counts requests rejected
+  by rate limiting. <code>scope</code> reflects the evaluated limiter (<code>ip</code>, <code>route</code>,
+  <code>api_key</code>, or <code>unknown</code> when not set).</li>
+</ul>
+<p>Use these series to alert on unexpected auth errors or aggressive clients.</p>
 <h3 id="admin_auth-admin-users-dashboard-login"><code>admin_auth</code> – admin users &amp; dashboard login<a class="headerlink" href="#admin_auth-admin-users-dashboard-login" title="Permanent link">&para;</a></h3>
 <p>The optional <code>admin_auth</code> section controls how admin users are stored and how
 the dashboard <code>/dashboard</code> and admin API <code>/admin/*</code> are protected.</p>

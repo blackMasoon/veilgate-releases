@@ -24,6 +24,7 @@ Endpoints include:
 - `GET /admin/summary` – basic gateway summary (total routes and upstreams).
 - `GET /admin/stats/routes` – basic usage statistics per route (requests, errors, latency).
 - `GET /admin/stats/api-keys` – basic usage statistics per API key.
+- `GET /admin/stats/security` – aggregated auth failures and rate-limit rejections per route.
 
 The full, structured definition of the admin API is generated as an OpenAPI document
 and published in the external documentation site.
