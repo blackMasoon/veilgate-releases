@@ -847,6 +847,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#adding-an-mcp-server-to-the-demo-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding an MCP server to the demo stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#initial-admin-user-dashboard-login" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1340,6 +1351,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#adding-an-mcp-server-to-the-demo-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding an MCP server to the demo stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#initial-admin-user-dashboard-login" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1507,6 +1529,27 @@ docker-compose.</p>
 <li><code>security.api_keys</code> – API keys (replace <code>demo-secret-key</code> with your own),</li>
 <li><code>rate_limit</code> – limits per route / IP / API key.</li>
 </ul>
+<h4 id="adding-an-mcp-server-to-the-demo-stack">Adding an MCP server to the demo stack<a class="headerlink" href="#adding-an-mcp-server-to-the-demo-stack" title="Permanent link">&para;</a></h4>
+<p>Once you have designed MCP tools in the dashboard (MCP Tools → Design tools),
+you can export a ready-to-run MCP server as a ZIP archive:</p>
+<ol>
+<li>Open <strong>MCP Tools</strong> in the dashboard and ensure you have at least one MCP
+   tool configured (for example, for the demo <code>items</code> API).</li>
+<li>Switch to the <strong>Export MCP server</strong> tab.</li>
+<li>Choose the tools to include, set a server name (e.g. <code>items-api-mcp</code>) and
+   download the ZIP.</li>
+<li>Unpack the ZIP next to your <code>docker-compose.yml</code> or in a separate repo and
+   build the MCP server:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>unzip<span class="w"> </span>items-api-mcp.zip<span class="w"> </span>-d<span class="w"> </span>./items-api-mcp
+<span class="nb">cd</span><span class="w"> </span>items-api-mcp/mcp/items-api-mcp
+go<span class="w"> </span>build<span class="w"> </span>./...
+</code></pre></div>
+
+<p>You can now run the MCP server alongside Veilgate (for example using a
+separate Dockerfile and service in <code>docker-compose.yml</code>) and configure your
+MCP-compatible client to talk to this new binary while all HTTP traffic still
+flows through Veilgate.</p>
 <h4 id="initial-admin-user-dashboard-login">Initial admin user &amp; dashboard login<a class="headerlink" href="#initial-admin-user-dashboard-login" title="Permanent link">&para;</a></h4>
 <p>To use the built‑in dashboard for managing routes, upstreams and API keys, you
 need an <strong>admin user</strong>. There are two recommended ways to bootstrap it:</p>

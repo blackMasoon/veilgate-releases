@@ -70,6 +70,30 @@ Typical things you may want to adjust:
 - `security.api_keys` – API keys (replace `demo-secret-key` with your own),
 - `rate_limit` – limits per route / IP / API key.
 
+#### Adding an MCP server to the demo stack
+
+Once you have designed MCP tools in the dashboard (MCP Tools → Design tools),
+you can export a ready-to-run MCP server as a ZIP archive:
+
+1. Open **MCP Tools** in the dashboard and ensure you have at least one MCP
+   tool configured (for example, for the demo `items` API).
+2. Switch to the **Export MCP server** tab.
+3. Choose the tools to include, set a server name (e.g. `items-api-mcp`) and
+   download the ZIP.
+4. Unpack the ZIP next to your `docker-compose.yml` or in a separate repo and
+   build the MCP server:
+
+```bash
+unzip items-api-mcp.zip -d ./items-api-mcp
+cd items-api-mcp/mcp/items-api-mcp
+go build ./...
+```
+
+You can now run the MCP server alongside Veilgate (for example using a
+separate Dockerfile and service in `docker-compose.yml`) and configure your
+MCP-compatible client to talk to this new binary while all HTTP traffic still
+flows through Veilgate.
+
 #### Initial admin user & dashboard login
 
 To use the built‑in dashboard for managing routes, upstreams and API keys, you
