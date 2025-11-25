@@ -126,4 +126,164 @@ client to send `Api-key: demo-secret-key`. Any route that references the
 `accounts` issuer validates RS256 tokens by discovering signing keys from the
 JWKS URL and caching them for five minutes.
 
+### `routes[].cache` – HTTP response caching
+
+Veilgate provides a simple in-memory cache for idempotent requests (GET/HEAD)
+to reduce upstream load and improve latency. Configure caching per route:
+
+```yaml
+routes:
+  - id: cached-api
+    path: /api/v1/products
+    method: GET
+    upstream_id: products-svc
+    cache:
+      enable: true
+      ttl_seconds: 300
+      vary_by_headers:
+        - Accept-Language
+        - Accept-Encoding
+      cache_all_safe_requests: false
+      honor_upstream_cache_control: true
+```
+
+Key fields:
+
+- `enable` – must be `true` to activate caching for the route.
+- `ttl_seconds` – how long cached responses remain valid (default is route TTL).
+- `vary_by_headers` – list of request headers to include in the cache key
+  (e.g., `Accept-Language` produces separate cache entries per language).
+- `cache_all_safe_requests` – when `true`, also caches OPTIONS requests.
+- `honor_upstream_cache_control` – when `true`, respects `Cache-Control: no-store`,
+  `Cache-Control: private`, and `max-age` directives from upstream responses.
+
+Cache metrics are exposed via Prometheus:
+- `veilgate_cache_events_total{route_id,event}` where `event` is `hit`, `miss`,
+  or `store`.
+
+### `routes[].proxy` – Proxy and transport options
+
+Each route can customize how requests are proxied to upstreams:
+
+```yaml
+routes:
+  - id: legacy-api
+    path: /legacy/*
+    method: "*"
+    upstream_id: legacy-backend
+    proxy:
+      preserve_host_header: true
+      tls:
+        insecure_skip_verify: true
+      timeouts:
+        dial_seconds: 5
+        tls_handshake_seconds: 5
+        response_header_seconds: 30
+        expect_continue_seconds: 1
+```
+
+Key fields:
+
+- `preserve_host_header` – when `true`, the original `Host` header from the
+  client request is passed to the upstream (instead of the upstream's hostname).
+  Useful for virtual-host routing on legacy backends.
+- `tls.insecure_skip_verify` – skip TLS certificate verification for upstream
+  connections. **Use only for development or trusted internal services.**
+- `timeouts.dial_seconds` – TCP dial timeout to upstream.
+- `timeouts.tls_handshake_seconds` – TLS handshake timeout.
+- `timeouts.response_header_seconds` – time to wait for response headers.
+- `timeouts.expect_continue_seconds` – time to wait for 100 Continue response.
+
+The same `proxy` block can be specified at the **upstream level** (`upstreams[].proxy`)
+to set defaults for all routes using that upstream. Route-level settings override
+upstream-level settings.
+
+### `server.http` – Global HTTP client tuning
+
+Global transport settings for all upstream connections:
+
+```yaml
+server:
+  http:
+    max_idle_conns: 512
+    max_idle_conns_per_host: 128
+    idle_conn_timeout_seconds: 90
+    dial_timeout_seconds: 30
+    tls_handshake_timeout_seconds: 10
+    response_header_timeout_seconds: 30
+    expect_continue_timeout_seconds: 1
+```
+
+These defaults apply to all upstreams unless overridden by `upstreams[].proxy`
+or `routes[].proxy`.
+
+### `routes[].rewrite` – Path rewriting
+
+Control how request paths are transformed before proxying:
+
+```yaml
+routes:
+  - id: api-v2
+    path: /ext/api/v2/*
+    method: GET
+    upstream_id: api-backend
+    rewrite:
+      strip_prefix: /ext
+      add_prefix: /internal
+```
+
+- `strip_prefix` – removes the specified prefix from the request path before
+  forwarding. The prefix must match the beginning of the configured route path.
+- `add_prefix` – prepends the specified prefix to the (possibly stripped) path.
+
+Example transformation: `/ext/api/v2/users` → `/internal/api/v2/users`
+
+### `routes[].response_headers` – Response header manipulation
+
+Add or remove headers from responses:
+
+```yaml
+routes:
+  - id: secure-api
+    path: /api/*
+    method: "*"
+    upstream_id: backend
+    response_headers:
+      add:
+        Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options: nosniff
+        X-Frame-Options: DENY
+      remove:
+        - Server
+        - X-Powered-By
+```
+
+Global response headers can be configured under `server.response_headers` and
+are applied before route-specific overrides.
+
+### `metrics.sink` – Stats export (Pump alternative)
+
+Export periodic stats snapshots to external stores. Currently supports JSONL
+file output as a lightweight alternative to Tyk Pump:
+
+```yaml
+metrics:
+  enabled: true
+  sink:
+    jsonl:
+      path: /var/log/veilgate/stats.jsonl
+      interval_seconds: 60
+```
+
+Each snapshot includes:
+- `timestamp` – when the snapshot was taken.
+- `route_stats` – per-route request counts and latency.
+- `api_key_stats` – per-API-key usage statistics.
+- `auth_failures` – authentication failure counts by route and reason.
+- `rate_limit_rejections` – rate limit rejection counts by route and scope.
+
+The JSONL format (one JSON object per line) is suitable for log aggregation
+tools like Loki, Elasticsearch, or custom processing pipelines.
+
+
 

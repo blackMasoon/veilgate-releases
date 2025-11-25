@@ -980,6 +980,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#routescache-http-response-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].cache – HTTP response caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesproxy-proxy-and-transport-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].proxy – Proxy and transport options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverhttp-global-http-client-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.http – Global HTTP client tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesrewrite-path-rewriting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].rewrite – Path rewriting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesresponse_headers-response-header-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].response_headers – Response header manipulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricssink-stats-export-pump-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metrics.sink – Stats export (Pump alternative)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1237,6 +1303,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#routescache-http-response-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].cache – HTTP response caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesproxy-proxy-and-transport-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].proxy – Proxy and transport options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverhttp-global-http-client-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.http – Global HTTP client tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesrewrite-path-rewriting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].rewrite – Path rewriting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routesresponse_headers-response-header-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        routes[].response_headers – Response header manipulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metricssink-stats-export-pump-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metrics.sink – Stats export (Pump alternative)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1364,6 +1496,141 @@ applies.</p>
 client to send <code>Api-key: demo-secret-key</code>. Any route that references the
 <code>accounts</code> issuer validates RS256 tokens by discovering signing keys from the
 JWKS URL and caching them for five minutes.</p>
+<h3 id="routescache-http-response-caching"><code>routes[].cache</code> – HTTP response caching<a class="headerlink" href="#routescache-http-response-caching" title="Permanent link">&para;</a></h3>
+<p>Veilgate provides a simple in-memory cache for idempotent requests (GET/HEAD)
+to reduce upstream load and improve latency. Configure caching per route:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cached-api</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/v1/products</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
+<span class="w">    </span><span class="nt">upstream_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">products-svc</span>
+<span class="w">    </span><span class="nt">cache</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">ttl_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+<span class="w">      </span><span class="nt">vary_by_headers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Accept-Language</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Accept-Encoding</span>
+<span class="w">      </span><span class="nt">cache_all_safe_requests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">honor_upstream_cache_control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<p>Key fields:</p>
+<ul>
+<li><code>enable</code> – must be <code>true</code> to activate caching for the route.</li>
+<li><code>ttl_seconds</code> – how long cached responses remain valid (default is route TTL).</li>
+<li><code>vary_by_headers</code> – list of request headers to include in the cache key
+  (e.g., <code>Accept-Language</code> produces separate cache entries per language).</li>
+<li><code>cache_all_safe_requests</code> – when <code>true</code>, also caches OPTIONS requests.</li>
+<li><code>honor_upstream_cache_control</code> – when <code>true</code>, respects <code>Cache-Control: no-store</code>,
+  <code>Cache-Control: private</code>, and <code>max-age</code> directives from upstream responses.</li>
+</ul>
+<p>Cache metrics are exposed via Prometheus:
+- <code>veilgate_cache_events_total{route_id,event}</code> where <code>event</code> is <code>hit</code>, <code>miss</code>,
+  or <code>store</code>.</p>
+<h3 id="routesproxy-proxy-and-transport-options"><code>routes[].proxy</code> – Proxy and transport options<a class="headerlink" href="#routesproxy-proxy-and-transport-options" title="Permanent link">&para;</a></h3>
+<p>Each route can customize how requests are proxied to upstreams:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">legacy-api</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/legacy/*</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
+<span class="w">    </span><span class="nt">upstream_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">legacy-backend</span>
+<span class="w">    </span><span class="nt">proxy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">preserve_host_header</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">tls</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">insecure_skip_verify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">timeouts</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">dial_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">        </span><span class="nt">tls_handshake_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">        </span><span class="nt">response_header_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">        </span><span class="nt">expect_continue_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+
+<p>Key fields:</p>
+<ul>
+<li><code>preserve_host_header</code> – when <code>true</code>, the original <code>Host</code> header from the
+  client request is passed to the upstream (instead of the upstream's hostname).
+  Useful for virtual-host routing on legacy backends.</li>
+<li><code>tls.insecure_skip_verify</code> – skip TLS certificate verification for upstream
+  connections. <strong>Use only for development or trusted internal services.</strong></li>
+<li><code>timeouts.dial_seconds</code> – TCP dial timeout to upstream.</li>
+<li><code>timeouts.tls_handshake_seconds</code> – TLS handshake timeout.</li>
+<li><code>timeouts.response_header_seconds</code> – time to wait for response headers.</li>
+<li><code>timeouts.expect_continue_seconds</code> – time to wait for 100 Continue response.</li>
+</ul>
+<p>The same <code>proxy</code> block can be specified at the <strong>upstream level</strong> (<code>upstreams[].proxy</code>)
+to set defaults for all routes using that upstream. Route-level settings override
+upstream-level settings.</p>
+<h3 id="serverhttp-global-http-client-tuning"><code>server.http</code> – Global HTTP client tuning<a class="headerlink" href="#serverhttp-global-http-client-tuning" title="Permanent link">&para;</a></h3>
+<p>Global transport settings for all upstream connections:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">http</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_idle_conns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">    </span><span class="nt">max_idle_conns_per_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">idle_conn_timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class="w">    </span><span class="nt">dial_timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">    </span><span class="nt">tls_handshake_timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">response_header_timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">    </span><span class="nt">expect_continue_timeout_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+
+<p>These defaults apply to all upstreams unless overridden by <code>upstreams[].proxy</code>
+or <code>routes[].proxy</code>.</p>
+<h3 id="routesrewrite-path-rewriting"><code>routes[].rewrite</code> – Path rewriting<a class="headerlink" href="#routesrewrite-path-rewriting" title="Permanent link">&para;</a></h3>
+<p>Control how request paths are transformed before proxying:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-v2</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/ext/api/v2/*</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
+<span class="w">    </span><span class="nt">upstream_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-backend</span>
+<span class="w">    </span><span class="nt">rewrite</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">strip_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/ext</span>
+<span class="w">      </span><span class="nt">add_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/internal</span>
+</code></pre></div>
+
+<ul>
+<li><code>strip_prefix</code> – removes the specified prefix from the request path before
+  forwarding. The prefix must match the beginning of the configured route path.</li>
+<li><code>add_prefix</code> – prepends the specified prefix to the (possibly stripped) path.</li>
+</ul>
+<p>Example transformation: <code>/ext/api/v2/users</code> → <code>/internal/api/v2/users</code></p>
+<h3 id="routesresponse_headers-response-header-manipulation"><code>routes[].response_headers</code> – Response header manipulation<a class="headerlink" href="#routesresponse_headers-response-header-manipulation" title="Permanent link">&para;</a></h3>
+<p>Add or remove headers from responses:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secure-api</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/*</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
+<span class="w">    </span><span class="nt">upstream_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backend</span>
+<span class="w">    </span><span class="nt">response_headers</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">add</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Strict-Transport-Security</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;max-age=31536000;</span><span class="nv"> </span><span class="s">includeSubDomains&quot;</span>
+<span class="w">        </span><span class="nt">X-Content-Type-Options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nosniff</span>
+<span class="w">        </span><span class="nt">X-Frame-Options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DENY</span>
+<span class="w">      </span><span class="nt">remove</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Server</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X-Powered-By</span>
+</code></pre></div>
+
+<p>Global response headers can be configured under <code>server.response_headers</code> and
+are applied before route-specific overrides.</p>
+<h3 id="metricssink-stats-export-pump-alternative"><code>metrics.sink</code> – Stats export (Pump alternative)<a class="headerlink" href="#metricssink-stats-export-pump-alternative" title="Permanent link">&para;</a></h3>
+<p>Export periodic stats snapshots to external stores. Currently supports JSONL
+file output as a lightweight alternative to Tyk Pump:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">sink</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">jsonl</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/log/veilgate/stats.jsonl</span>
+<span class="w">      </span><span class="nt">interval_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+</code></pre></div>
+
+<p>Each snapshot includes:
+- <code>timestamp</code> – when the snapshot was taken.
+- <code>route_stats</code> – per-route request counts and latency.
+- <code>api_key_stats</code> – per-API-key usage statistics.
+- <code>auth_failures</code> – authentication failure counts by route and reason.
+- <code>rate_limit_rejections</code> – rate limit rejection counts by route and scope.</p>
+<p>The JSONL format (one JSON object per line) is suitable for log aggregation
+tools like Loki, Elasticsearch, or custom processing pipelines.</p>
 
 
 
