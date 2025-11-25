@@ -1218,15 +1218,26 @@ description: Built-in security and rate limiting policies and how they attach to
 <h1 id="policies-auth-rate-limiting">Policies: auth &amp; rate limiting<a class="headerlink" href="#policies-auth-rate-limiting" title="Permanent link">&para;</a></h1>
 <p>Veilgate ships with built‑in policies for authentication and rate limiting.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
-<p>Supported mechanisms:</p>
+<p>Veilgate ships with two first-class authentication mechanisms that mirror the
+Tyk setups we are replacing:</p>
 <ul>
-<li><strong>API keys</strong> – static keys configured in <code>security.api_keys</code>.</li>
-<li><strong>JWT</strong> – HS256/RS256 tokens with configurable issuer, audience and claim constraints.</li>
+<li><strong>API keys</strong> – static keys configured in <code>security.api_keys</code>. A single,
+  configurable header carries keys across all routes
+  (<code>security.api_keys_header_name</code>, default <code>X-API-Key</code>). When a particular API
+  needs to honor a legacy header (<code>Api-key</code>, <code>X-Customer-Key</code>, etc.), override
+  it per route via <code>routes[].auth.api_key_header_name</code>. The dashboard now
+  surfaces both the global default and per-route overrides so operators can
+  confirm exactly what the gateway expects.</li>
+<li><strong>JWT</strong> – tokens issued by configurable providers. Veilgate supports HS256,
+  RS256 with a local PEM, and RS256 via JWKS discovery. JWKS issuers declare a
+  <code>jwks_url</code> and a positive <code>jwks_cache_ttl_seconds</code>; the gateway fetches and
+  caches keys, selecting the right one via the token's <code>kid</code>. Optional <code>issuer</code>
+  and <code>audience[]</code> claims are validated for every token.</li>
 </ul>
 <p>Policies can be attached to routes to enforce:</p>
 <ul>
-<li>specific key sets,</li>
-<li>specific JWT issuers/audiences or claims.</li>
+<li>specific key sets or header names,</li>
+<li>specific JWT issuers/audiences or downstream claim constraints.</li>
 </ul>
 <h2 id="rate-limiting">Rate limiting<a class="headerlink" href="#rate-limiting" title="Permanent link">&para;</a></h2>
 <p>Rate limiting is implemented as an efficient in‑memory token bucket.</p>

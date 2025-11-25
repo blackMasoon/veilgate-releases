@@ -9,15 +9,26 @@ Veilgate ships with built‑in policies for authentication and rate limiting.
 
 ## Authentication
 
-Supported mechanisms:
+Veilgate ships with two first-class authentication mechanisms that mirror the
+Tyk setups we are replacing:
 
-- **API keys** – static keys configured in `security.api_keys`.
-- **JWT** – HS256/RS256 tokens with configurable issuer, audience and claim constraints.
+- **API keys** – static keys configured in `security.api_keys`. A single,
+  configurable header carries keys across all routes
+  (`security.api_keys_header_name`, default `X-API-Key`). When a particular API
+  needs to honor a legacy header (`Api-key`, `X-Customer-Key`, etc.), override
+  it per route via `routes[].auth.api_key_header_name`. The dashboard now
+  surfaces both the global default and per-route overrides so operators can
+  confirm exactly what the gateway expects.
+- **JWT** – tokens issued by configurable providers. Veilgate supports HS256,
+  RS256 with a local PEM, and RS256 via JWKS discovery. JWKS issuers declare a
+  `jwks_url` and a positive `jwks_cache_ttl_seconds`; the gateway fetches and
+  caches keys, selecting the right one via the token's `kid`. Optional `issuer`
+  and `audience[]` claims are validated for every token.
 
 Policies can be attached to routes to enforce:
 
-- specific key sets,
-- specific JWT issuers/audiences or claims.
+- specific key sets or header names,
+- specific JWT issuers/audiences or downstream claim constraints.
 
 ## Rate limiting
 

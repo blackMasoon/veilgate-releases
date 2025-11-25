@@ -907,6 +907,28 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#or-if-you-switched-to-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        …or, if you switched to Api-key:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="…or, if you switched to Api-key:">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#when-a-full-container-restart-is-still-required" class="md-nav__link">
     <span class="md-ellipsis">
@@ -915,11 +937,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1411,6 +1428,28 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#or-if-you-switched-to-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        …or, if you switched to Api-key:
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="…or, if you switched to Api-key:">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#when-a-full-container-restart-is-still-required" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1419,11 +1458,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1462,8 +1496,6 @@
   
   
 
-
-  <h1>Quickstart – Docker + docker-compose</h1>
 
 <h2 id="veilgate-quickstart-docker-docker-compose">Veilgate – Quickstart (Docker + docker-compose)<a class="headerlink" href="#veilgate-quickstart-docker-docker-compose" title="Permanent link">&para;</a></h2>
 <p>This document explains how to run a released Veilgate package using Docker and
@@ -1527,8 +1559,32 @@ docker-compose.</p>
 <li><code>upstreams</code> – addresses of your backend services,</li>
 <li><code>routes</code> – paths, methods and upstream assignment,</li>
 <li><code>security.api_keys</code> – API keys (replace <code>demo-secret-key</code> with your own),</li>
+<li><code>security.api_keys_header_name</code> – global header carrying API keys
+  (defaults to <code>X-API-Key</code>, but you can switch to <code>Api-key</code> to match legacy Tyk clients),</li>
+<li><code>security.jwt_issuers</code> – JWT providers; set <code>algorithm: JWKS</code> and a <code>jwks_url</code>
+  when you want Veilgate to discover RS256 signing keys automatically,</li>
 <li><code>rate_limit</code> – limits per route / IP / API key.</li>
 </ul>
+<p>For example, to mirror the Tyk setup where clients send <code>Api-key</code> and JWTs come
+from an IdP that exposes JWKS metadata:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">security</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">api_keys_header_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Api-key&quot;</span>
+<span class="w">  </span><span class="nt">api_keys</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-secret-key</span>
+<span class="w">  </span><span class="nt">jwt_issuers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accounts</span>
+<span class="w">      </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://id.example.com/&quot;</span>
+<span class="w">      </span><span class="nt">audience</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;mobile-app&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">algorithm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JWKS</span>
+<span class="w">      </span><span class="nt">jwks_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://id.example.com/.well-known/jwks.json&quot;</span>
+<span class="w">      </span><span class="nt">jwks_cache_ttl_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+</code></pre></div>
+
+<p>Every route with <code>auth.api_key: true</code> now expects <code>Api-key: demo-secret-key</code>.
+Routes referencing the <code>accounts</code> issuer validate RS256 tokens by downloading and
+caching signing keys from the JWKS URL. See the configuration reference for the
+complete set of fields and validation rules.</p>
 <h4 id="adding-an-mcp-server-to-the-demo-stack">Adding an MCP server to the demo stack<a class="headerlink" href="#adding-an-mcp-server-to-the-demo-stack" title="Permanent link">&para;</a></h4>
 <p>Once you have designed MCP tools in the dashboard (MCP Tools → Design tools),
 you can export a ready-to-run MCP server as a ZIP archive:</p>
@@ -1666,8 +1722,11 @@ defined as:</p>
 <li><strong>Verify new routes without restarting</strong></li>
 </ol>
 <p>Existing routes should behave as before:</p>
-<p><code>bash
-   curl -H 'X-API-Key: demo-secret-key' http://localhost:8080/</code></p>
+<p>```bash
+curl -H 'X-API-Key: demo-secret-key' http://localhost:8080/</p>
+<h1 id="or-if-you-switched-to-api-key">…or, if you switched to Api-key:<a class="headerlink" href="#or-if-you-switched-to-api-key" title="Permanent link">&para;</a></h1>
+<p>curl -H 'Api-key: demo-secret-key' http://localhost:8080/
+   ```</p>
 <p>New routes should be available after the hot reload:</p>
 <p><code>bash
    curl -H 'X-API-Key: demo-secret-key' http://localhost:8080/extra</code></p>

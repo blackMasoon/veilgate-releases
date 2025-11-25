@@ -82,4 +82,48 @@ Key fields:
 - `rate_limit` – basic rate limit settings for the admin API (same shape as
   `rate_limit.default` used for routes).
 
+### `security` – API keys & JWT issuers
+
+The `security` section configures shared authentication primitives that routes
+can reference later on:
+
+- `api_keys` – static keys defined up front (id, key, optional label/created_at).
+- `api_keys_header_name` – global header that carries API keys on every route.
+  Defaults to `X-API-Key`, but you can switch to Tyks `Api-key` or any other
+  canonical header without recompiling the gateway.
+- `jwt_issuers` – trusted JWT providers. Each issuer advertises:
+  - `id` – unique reference used by routes (`routes[].auth.jwt_issuer_id`).
+  - `algorithm` – `HS256`, `RS256` (local PEM), or `JWKS` for remote key sets.
+  - Depending on the algorithm, additional fields such as `hs256_secret`,
+    `rsa_public_key_path`, `jwks_url`, and `jwks_cache_ttl_seconds` are required.
+  - Optional `issuer` and `audience[]` constraints are enforced during token
+    validation.
+
+Routes can still override the header name on a per-route basis via
+`routes[].auth.api_key_header_name`. If left empty, the global header name
+applies.
+
+Example:
+
+```yaml
+security:
+  api_keys_header_name: "Api-key"
+  api_keys:
+    - id: m2m-service
+      key: demo-secret-key
+      label: "Internal service"
+  jwt_issuers:
+    - id: accounts
+      issuer: "https://id.example.com/"
+      audience: ["truckmanager"]
+      algorithm: JWKS
+      jwks_url: "https://id.example.com/.well-known/jwks.json"
+      jwks_cache_ttl_seconds: 300
+```
+
+In the example above every route that enables `auth.api_key: true` expects the
+client to send `Api-key: demo-secret-key`. Any route that references the
+`accounts` issuer validates RS256 tokens by discovering signing keys from the
+JWKS URL and caching them for five minutes.
+
 

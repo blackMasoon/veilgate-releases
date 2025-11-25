@@ -969,6 +969,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#security-api-keys-jwt-issuers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        security – API keys &amp; JWT issuers
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1215,6 +1226,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#security-api-keys-jwt-issuers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        security – API keys &amp; JWT issuers
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1303,6 +1325,45 @@ the dashboard <code>/dashboard</code> and admin API <code>/admin/*</code> are pr
 <li><code>rate_limit</code> – basic rate limit settings for the admin API (same shape as
   <code>rate_limit.default</code> used for routes).</li>
 </ul>
+<h3 id="security-api-keys-jwt-issuers"><code>security</code> – API keys &amp; JWT issuers<a class="headerlink" href="#security-api-keys-jwt-issuers" title="Permanent link">&para;</a></h3>
+<p>The <code>security</code> section configures shared authentication primitives that routes
+can reference later on:</p>
+<ul>
+<li><code>api_keys</code> – static keys defined up front (id, key, optional label/created_at).</li>
+<li><code>api_keys_header_name</code> – global header that carries API keys on every route.
+  Defaults to <code>X-API-Key</code>, but you can switch to Tyks <code>Api-key</code> or any other
+  canonical header without recompiling the gateway.</li>
+<li><code>jwt_issuers</code> – trusted JWT providers. Each issuer advertises:</li>
+<li><code>id</code> – unique reference used by routes (<code>routes[].auth.jwt_issuer_id</code>).</li>
+<li><code>algorithm</code> – <code>HS256</code>, <code>RS256</code> (local PEM), or <code>JWKS</code> for remote key sets.</li>
+<li>Depending on the algorithm, additional fields such as <code>hs256_secret</code>,
+    <code>rsa_public_key_path</code>, <code>jwks_url</code>, and <code>jwks_cache_ttl_seconds</code> are required.</li>
+<li>Optional <code>issuer</code> and <code>audience[]</code> constraints are enforced during token
+    validation.</li>
+</ul>
+<p>Routes can still override the header name on a per-route basis via
+<code>routes[].auth.api_key_header_name</code>. If left empty, the global header name
+applies.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">security</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">api_keys_header_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Api-key&quot;</span>
+<span class="w">  </span><span class="nt">api_keys</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">m2m-service</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-secret-key</span>
+<span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Internal</span><span class="nv"> </span><span class="s">service&quot;</span>
+<span class="w">  </span><span class="nt">jwt_issuers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accounts</span>
+<span class="w">      </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://id.example.com/&quot;</span>
+<span class="w">      </span><span class="nt">audience</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;truckmanager&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">algorithm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JWKS</span>
+<span class="w">      </span><span class="nt">jwks_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://id.example.com/.well-known/jwks.json&quot;</span>
+<span class="w">      </span><span class="nt">jwks_cache_ttl_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+</code></pre></div>
+
+<p>In the example above every route that enables <code>auth.api_key: true</code> expects the
+client to send <code>Api-key: demo-secret-key</code>. Any route that references the
+<code>accounts</code> issuer validates RS256 tokens by discovering signing keys from the
+JWKS URL and caching them for five minutes.</p>
 
 
 

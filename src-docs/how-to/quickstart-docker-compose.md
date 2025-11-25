@@ -68,7 +68,34 @@ Typical things you may want to adjust:
 - `upstreams` – addresses of your backend services,
 - `routes` – paths, methods and upstream assignment,
 - `security.api_keys` – API keys (replace `demo-secret-key` with your own),
+- `security.api_keys_header_name` – global header carrying API keys
+  (defaults to `X-API-Key`, but you can switch to `Api-key` to match legacy Tyk clients),
+- `security.jwt_issuers` – JWT providers; set `algorithm: JWKS` and a `jwks_url`
+  when you want Veilgate to discover RS256 signing keys automatically,
 - `rate_limit` – limits per route / IP / API key.
+
+For example, to mirror the Tyk setup where clients send `Api-key` and JWTs come
+from an IdP that exposes JWKS metadata:
+
+```yaml
+security:
+  api_keys_header_name: "Api-key"
+  api_keys:
+    - id: demo
+      key: demo-secret-key
+  jwt_issuers:
+    - id: accounts
+      issuer: "https://id.example.com/"
+      audience: ["mobile-app"]
+      algorithm: JWKS
+      jwks_url: "https://id.example.com/.well-known/jwks.json"
+      jwks_cache_ttl_seconds: 300
+```
+
+Every route with `auth.api_key: true` now expects `Api-key: demo-secret-key`.
+Routes referencing the `accounts` issuer validate RS256 tokens by downloading and
+caching signing keys from the JWKS URL. See the configuration reference for the
+complete set of fields and validation rules.
 
 #### Adding an MCP server to the demo stack
 
@@ -232,7 +259,9 @@ services:
    Existing routes should behave as before:
 
    ```bash
-   curl -H 'X-API-Key: demo-secret-key' http://localhost:8080/
+curl -H 'X-API-Key: demo-secret-key' http://localhost:8080/
+# …or, if you switched to Api-key:
+curl -H 'Api-key: demo-secret-key' http://localhost:8080/
    ```
 
    New routes should be available after the hot reload:
