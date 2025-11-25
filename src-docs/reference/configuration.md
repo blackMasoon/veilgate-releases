@@ -285,5 +285,164 @@ Each snapshot includes:
 The JSONL format (one JSON object per line) is suitable for log aggregation
 tools like Loki, Elasticsearch, or custom processing pipelines.
 
+### `routes[].ip_filter` – IP-based access control
+
+Configure CIDR-based allow/deny lists for fine-grained IP filtering per route:
+
+```yaml
+routes:
+  - id: admin-api
+    path: /admin/*
+    method: "*"
+    upstream_id: admin-backend
+    ip_filter:
+      allow_cidrs:
+        - 10.0.0.0/8
+        - 192.168.1.0/24
+        - 172.16.0.0/12
+      deny_cidrs:
+        - 0.0.0.0/0
+```
+
+Key fields:
+
+- `allow_cidrs` – list of CIDR ranges that are allowed to access this route.
+  If specified, only IPs matching these ranges can access the route.
+- `deny_cidrs` – list of CIDR ranges that are explicitly denied. Deny rules
+  are evaluated after allow rules.
+
+**Evaluation order:**
+
+1. If `allow_cidrs` is non-empty, the client IP must match at least one allowed CIDR.
+2. If `deny_cidrs` is non-empty and the client IP matches any denied CIDR, access is denied.
+3. If neither list is configured, all IPs are allowed.
+
+The middleware extracts the client IP from:
+1. The first IP in the `X-Forwarded-For` header (if present)
+2. The remote address from the connection
+
+### `routes[].cors` – CORS configuration
+
+Enable Cross-Origin Resource Sharing (CORS) for browser-based API access:
+
+```yaml
+routes:
+  - id: public-api
+    path: /api/v1/*
+    method: "*"
+    upstream_id: api-backend
+    cors:
+      enable: true
+      allowed_origins:
+        - https://app.example.com
+        - https://staging.example.com
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowed_headers:
+        - Content-Type
+        - Authorization
+        - X-Requested-With
+      allow_credentials: true
+      max_age: 24
+```
+
+Key fields:
+
+- `enable` – must be `true` to activate CORS handling for the route.
+- `allowed_origins` – list of origins that are allowed to make cross-origin requests.
+  Use `*` for wildcard (not recommended with credentials).
+- `allowed_methods` – HTTP methods permitted in cross-origin requests.
+- `allowed_headers` – request headers that clients may include in cross-origin requests.
+- `allow_credentials` – whether to include credentials (cookies, auth headers) in requests.
+  Note: `allow_credentials: true` is incompatible with wildcard origins.
+- `max_age` – how long (in hours) browsers should cache preflight responses.
+
+**Preflight handling:**
+
+When CORS is enabled, Veilgate automatically handles `OPTIONS` preflight requests
+by responding with appropriate `Access-Control-*` headers without forwarding to
+the upstream. This reduces upstream load and improves response times.
+
+### Complete route configuration example
+
+Here's a complete example showing all available route options:
+
+```yaml
+routes:
+  - id: orders-api-v2
+    host: api.example.com
+    path: /ext/orders/v2/*
+    method: "*"
+    upstream_id: orders-backend
+    
+    # Path rewriting
+    rewrite:
+      strip_prefix: /ext/orders/v2
+      add_prefix: /api/orders
+    
+    # CORS for browser access
+    cors:
+      enable: true
+      allowed_origins:
+        - https://app.example.com
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+      allowed_headers:
+        - "*"
+      allow_credentials: false
+      max_age: 24
+    
+    # Security headers
+    response_headers:
+      add:
+        Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options: nosniff
+        X-Frame-Options: DENY
+        Referrer-Policy: strict-origin-when-cross-origin
+      remove:
+        - Server
+        - X-Powered-By
+    
+    # Response caching
+    cache:
+      enable: true
+      ttl_seconds: 300
+      vary_by_headers:
+        - Accept-Language
+      honor_upstream_cache_control: true
+    
+    # Proxy options
+    proxy:
+      preserve_host_header: false
+      tls:
+        insecure_skip_verify: false
+      timeouts:
+        dial_seconds: 5
+        response_header_seconds: 30
+    
+    # IP filtering
+    ip_filter:
+      allow_cidrs:
+        - 10.0.0.0/8
+    
+    # Authentication
+    auth:
+      api_key: true
+      jwt_issuer_id: main-idp
+    
+    # Rate limiting
+    rate_limit:
+      enabled: true
+      requests_per_second: 100
+      burst: 200
+      scope: api_key
+```
 
 

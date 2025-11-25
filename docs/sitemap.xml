@@ -37,6 +37,14 @@
          <lastmod>2025-11-25</lastmod>
     </url>
     <url>
+         <loc>https://blackmasoon.github.io/veilgate-releases/how-to/dashboard-guide/</loc>
+         <lastmod>2025-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://blackmasoon.github.io/veilgate-releases/how-to/migrating-from-tyk/</loc>
+         <lastmod>2025-11-25</lastmod>
+    </url>
+    <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/quickstart-docker-compose/</loc>
          <lastmod>2025-11-25</lastmod>
     </url>
@@ -66,6 +74,10 @@
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/mcp/</loc>
+         <lastmod>2025-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://blackmasoon.github.io/veilgate-releases/reference/performance/</loc>
          <lastmod>2025-11-25</lastmod>
     </url>
 </urlset>
