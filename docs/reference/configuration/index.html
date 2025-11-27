@@ -1483,8 +1483,12 @@ consistent debugging:</p>
   log entry (<code>request_id</code>, <code>correlation_id</code> fields), making it easy to filter
   logs per call chain.</li>
 </ul>
-<p>No extra configuration is required beyond enabling the default logging
-middleware; customise formats and levels via the <code>logging</code> section as before.</p>
+<p>Set <code>logging.access.enabled: false</code> to completely remove the access-log
+middleware from the hot path in high-throughput environments (fewer allocations,
+no per-request JSON log). When disabled, request/correlation IDs are not
+attached to the context, so only enable this mode if you prefer raw performance
+over diagnostic richness. Customise formats and levels via the rest of the
+<code>logging</code> section as before.</p>
 <h3 id="metrics-auth-rate-limit-counters">Metrics – auth &amp; rate-limit counters<a class="headerlink" href="#metrics-auth-rate-limit-counters" title="Permanent link">&para;</a></h3>
 <p>In addition to the core HTTP metrics, Veilgate now exports dedicated security
 counters whenever <code>metrics</code> are enabled:</p>
@@ -1495,7 +1499,11 @@ counters whenever <code>metrics</code> are enabled:</p>
   by rate limiting. <code>scope</code> reflects the evaluated limiter (<code>ip</code>, <code>route</code>,
   <code>api_key</code>, or <code>unknown</code> when not set).</li>
 </ul>
-<p>Use these series to alert on unexpected auth errors or aggressive clients.</p>
+<p>Use these series to alert on unexpected auth errors or aggressive clients. The
+associated <code>/admin/stats/*</code> snapshots can be disabled via
+<code>metrics.detailed_stats: false</code>, which removes per-request lock contention for
+the in-memory counters while leaving Prometheus metrics untouched. This is
+recommended for latency-sensitive production or benchmark profiles.</p>
 <h3 id="admin_auth-admin-users-dashboard-login"><code>admin_auth</code> – admin users &amp; dashboard login<a class="headerlink" href="#admin_auth-admin-users-dashboard-login" title="Permanent link">&para;</a></h3>
 <p>The optional <code>admin_auth</code> section controls how admin users are stored and how
 the dashboard <code>/dashboard</code> and admin API <code>/admin/*</code> are protected.</p>

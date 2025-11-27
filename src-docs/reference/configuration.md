@@ -35,8 +35,12 @@ consistent debugging:
   log entry (`request_id`, `correlation_id` fields), making it easy to filter
   logs per call chain.
 
-No extra configuration is required beyond enabling the default logging
-middleware; customise formats and levels via the `logging` section as before.
+Set `logging.access.enabled: false` to completely remove the access-log
+middleware from the hot path in high-throughput environments (fewer allocations,
+no per-request JSON log). When disabled, request/correlation IDs are not
+attached to the context, so only enable this mode if you prefer raw performance
+over diagnostic richness. Customise formats and levels via the rest of the
+`logging` section as before.
 
 ### Metrics – auth & rate-limit counters
 
@@ -49,7 +53,11 @@ counters whenever `metrics` are enabled:
   by rate limiting. `scope` reflects the evaluated limiter (`ip`, `route`,
   `api_key`, or `unknown` when not set).
 
-Use these series to alert on unexpected auth errors or aggressive clients.
+Use these series to alert on unexpected auth errors or aggressive clients. The
+associated `/admin/stats/*` snapshots can be disabled via
+`metrics.detailed_stats: false`, which removes per-request lock contention for
+the in-memory counters while leaving Prometheus metrics untouched. This is
+recommended for latency-sensitive production or benchmark profiles.
 
 ### `admin_auth` – admin users & dashboard login
 
