@@ -25,9 +25,86 @@ These targets assume:
 - Small response bodies (1-4 KB)
 - In-memory rate limiting and caching
 
+## Gateway benchmark harness
+
+Veilgate ships with a containerized benchmark that stands up Veilgate and Tyk
+side-by-side, executes k6 scenarios, and renders an HTML report under
+`benchmark/report/output/`.
+
+```bash
+# Recommended flow – everything inside the runner container.
+./benchmark/run-container.sh --scenario full --build
+```
+
+Key properties:
+
+- **Deterministic warmups** – Every scenario defines `warmup_duration` and
+  `repetitions` in `benchmark/config/scenarios.yaml`. The orchestrator performs a
+  warmup phase (metrics discarded) and then executes the scenario multiple times,
+  aggregating p95/p99, throughput, and error rates with per-run variance in the
+  report.
+- **Broader scenario mix** – The default `full` profile covers unauthenticated,
+  authenticated, and rate-limited routes with longer steady-state windows to
+  surface queueing effects.
+- **System telemetry** – After each steady-state run the harness captures
+  `docker stats` for Veilgate and Tyk, storing the snapshots under
+  `benchmark/results/<run>/raw/system/`. The HTML report links those files and
+  displays CPU%/Mem% inline so regressions can be tied to resource contention.
+- **Resource pinning** – To give both gateways identical CPU budgets, export
+  any of the following before running the benchmark (works for both native and
+  containerized execution):
+
+  ```bash
+  export VEILGATE_CPUS=1.0
+  export TYK_CPUS=1.0
+  export VEILGATE_CPUSET=0
+  export TYK_CPUSET=1
+  ```
+
+  The orchestrator applies these values via `docker update` immediately after
+  `docker compose up`, ensuring repeatable runs even on noisy hosts.
+- **Configurable host ports** – If `localhost:18080` is already taken on the
+  host, export `VEILGATE_HOST_PORT=28080` (or pass `--veilgate-port 28080`
+  directly to `python -m benchmark.run`). The compose stack and report links
+  automatically track the overridden port, which keeps long benchmark runs from
+  failing on port conflicts. The containerized runner additionally connects
+  itself to the compose network so the load generator talks directly to
+  `veilgate:8080` / `tyk-gateway:8080`, bypassing host-port hairpin proxies that
+  often drop connections under high RPS on Colima/Docker Desktop. Set
+  `BENCHMARK_USE_COMPOSE_NETWORK=0` before `run-container.sh` only if you need
+  the older host-port routing for debugging.
+
+Artifacts live under `benchmark/results/<timestamp>/`:
+
+- `raw/*.json` – individual k6 summaries for each gateway/scenario/run.
+- `raw/system/*.json` – docker stats snapshots per run.
+- `aggregated/run.json` – merged dataset consumed by the HTML report.
+- `sink/*.jsonl` – Veilgate stats sink output (if enabled) with periodic route/API key stats.
+
+### Benchmark scenarios
+
+The benchmark includes scenarios covering all Tyk-parity features:
+
+- **basic-proxy**: Baseline unauthenticated throughput
+- **rewrite-proxy**: Path rewriting (`strip_prefix`/`add_prefix`)
+- **cors-proxy**: CORS preflight and response headers
+- **cache-hit**: HTTP caching with hit ratio metrics
+- **jwt-jwks**: JWT validation via JWKS
+- **apikey-custom**: Custom API key header names
+- **tls-preserve-host**: HTTPS upstream with host header preservation
+- **auth-proxy**: API key authentication overhead
+- **ratelimit-burst**: Global rate limiting
+- **ipfilter**: CIDR-based IP filtering
+- **ratelimit-perkey**: Per-API-key rate limiting
+- **websocket-throughput**: WebSocket handshake and message throughput
+
+Each scenario includes functional tests (correctness) and load tests (performance).
+The `smoke` profile runs only `basic-proxy`; `ci` runs a subset; `full` runs all scenarios.
+
 ## Running benchmarks
 
-Veilgate includes a benchmark suite in `internal/perf/`. Run benchmarks with:
+For micro-level profiling (single middleware combinations, allocations, etc.)
+use the Go benchmarks shipped in `internal/perf/`:
 
 ```bash
 # Quick benchmark run
@@ -40,7 +117,7 @@ go test -bench=. -benchtime=5s ./internal/perf/...
 go test -bench=. -benchmem ./internal/perf/...
 ```
 
-### Available benchmarks
+### Available microbenchmarks
 
 | Benchmark | Description |
 |-----------|-------------|

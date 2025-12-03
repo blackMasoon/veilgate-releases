@@ -1103,6 +1103,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gateway-benchmark-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway benchmark harness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gateway benchmark harness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-benchmarks" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1115,10 +1143,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#available-benchmarks" class="md-nav__link">
+  <a href="#available-microbenchmarks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available benchmarks
+        Available microbenchmarks
       
     </span>
   </a>
@@ -1385,8 +1413,77 @@ overhead compared to direct backend access.</p>
 - No TLS termination at the gateway
 - Small response bodies (1-4 KB)
 - In-memory rate limiting and caching</p>
+<h2 id="gateway-benchmark-harness">Gateway benchmark harness<a class="headerlink" href="#gateway-benchmark-harness" title="Permanent link">&para;</a></h2>
+<p>Veilgate ships with a containerized benchmark that stands up Veilgate and Tyk
+side-by-side, executes k6 scenarios, and renders an HTML report under
+<code>benchmark/report/output/</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Recommended flow – everything inside the runner container.</span>
+./benchmark/run-container.sh<span class="w"> </span>--scenario<span class="w"> </span>full<span class="w"> </span>--build
+</code></pre></div>
+
+<p>Key properties:</p>
+<ul>
+<li><strong>Deterministic warmups</strong> – Every scenario defines <code>warmup_duration</code> and
+  <code>repetitions</code> in <code>benchmark/config/scenarios.yaml</code>. The orchestrator performs a
+  warmup phase (metrics discarded) and then executes the scenario multiple times,
+  aggregating p95/p99, throughput, and error rates with per-run variance in the
+  report.</li>
+<li><strong>Broader scenario mix</strong> – The default <code>full</code> profile covers unauthenticated,
+  authenticated, and rate-limited routes with longer steady-state windows to
+  surface queueing effects.</li>
+<li><strong>System telemetry</strong> – After each steady-state run the harness captures
+  <code>docker stats</code> for Veilgate and Tyk, storing the snapshots under
+  <code>benchmark/results/&lt;run&gt;/raw/system/</code>. The HTML report links those files and
+  displays CPU%/Mem% inline so regressions can be tied to resource contention.</li>
+<li><strong>Resource pinning</strong> – To give both gateways identical CPU budgets, export
+  any of the following before running the benchmark (works for both native and
+  containerized execution):</li>
+</ul>
+<p><code>bash
+  export VEILGATE_CPUS=1.0
+  export TYK_CPUS=1.0
+  export VEILGATE_CPUSET=0
+  export TYK_CPUSET=1</code></p>
+<p>The orchestrator applies these values via <code>docker update</code> immediately after
+  <code>docker compose up</code>, ensuring repeatable runs even on noisy hosts.
+- <strong>Configurable host ports</strong> – If <code>localhost:18080</code> is already taken on the
+  host, export <code>VEILGATE_HOST_PORT=28080</code> (or pass <code>--veilgate-port 28080</code>
+  directly to <code>python -m benchmark.run</code>). The compose stack and report links
+  automatically track the overridden port, which keeps long benchmark runs from
+  failing on port conflicts. The containerized runner additionally connects
+  itself to the compose network so the load generator talks directly to
+  <code>veilgate:8080</code> / <code>tyk-gateway:8080</code>, bypassing host-port hairpin proxies that
+  often drop connections under high RPS on Colima/Docker Desktop. Set
+  <code>BENCHMARK_USE_COMPOSE_NETWORK=0</code> before <code>run-container.sh</code> only if you need
+  the older host-port routing for debugging.</p>
+<p>Artifacts live under <code>benchmark/results/&lt;timestamp&gt;/</code>:</p>
+<ul>
+<li><code>raw/*.json</code> – individual k6 summaries for each gateway/scenario/run.</li>
+<li><code>raw/system/*.json</code> – docker stats snapshots per run.</li>
+<li><code>aggregated/run.json</code> – merged dataset consumed by the HTML report.</li>
+<li><code>sink/*.jsonl</code> – Veilgate stats sink output (if enabled) with periodic route/API key stats.</li>
+</ul>
+<h3 id="benchmark-scenarios">Benchmark scenarios<a class="headerlink" href="#benchmark-scenarios" title="Permanent link">&para;</a></h3>
+<p>The benchmark includes scenarios covering all Tyk-parity features:</p>
+<ul>
+<li><strong>basic-proxy</strong>: Baseline unauthenticated throughput</li>
+<li><strong>rewrite-proxy</strong>: Path rewriting (<code>strip_prefix</code>/<code>add_prefix</code>)</li>
+<li><strong>cors-proxy</strong>: CORS preflight and response headers</li>
+<li><strong>cache-hit</strong>: HTTP caching with hit ratio metrics</li>
+<li><strong>jwt-jwks</strong>: JWT validation via JWKS</li>
+<li><strong>apikey-custom</strong>: Custom API key header names</li>
+<li><strong>tls-preserve-host</strong>: HTTPS upstream with host header preservation</li>
+<li><strong>auth-proxy</strong>: API key authentication overhead</li>
+<li><strong>ratelimit-burst</strong>: Global rate limiting</li>
+<li><strong>ipfilter</strong>: CIDR-based IP filtering</li>
+<li><strong>ratelimit-perkey</strong>: Per-API-key rate limiting</li>
+<li><strong>websocket-throughput</strong>: WebSocket handshake and message throughput</li>
+</ul>
+<p>Each scenario includes functional tests (correctness) and load tests (performance).
+The <code>smoke</code> profile runs only <code>basic-proxy</code>; <code>ci</code> runs a subset; <code>full</code> runs all scenarios.</p>
 <h2 id="running-benchmarks">Running benchmarks<a class="headerlink" href="#running-benchmarks" title="Permanent link">&para;</a></h2>
-<p>Veilgate includes a benchmark suite in <code>internal/perf/</code>. Run benchmarks with:</p>
+<p>For micro-level profiling (single middleware combinations, allocations, etc.)
+use the Go benchmarks shipped in <code>internal/perf/</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Quick benchmark run</span>
 go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>.<span class="w"> </span>./internal/perf/...
 
@@ -1397,7 +1494,7 @@ go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-b
 go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>.<span class="w"> </span>-benchmem<span class="w"> </span>./internal/perf/...
 </code></pre></div>
 
-<h3 id="available-benchmarks">Available benchmarks<a class="headerlink" href="#available-benchmarks" title="Permanent link">&para;</a></h3>
+<h3 id="available-microbenchmarks">Available microbenchmarks<a class="headerlink" href="#available-microbenchmarks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
