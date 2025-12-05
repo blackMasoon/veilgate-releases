@@ -18,7 +18,7 @@ Both apps are configured as single-machine, scale-to-zero (auto-stop/auto-start)
 Set these in your GitHub repository settings → Secrets and variables → Actions:
 
 - `FLY_API_TOKEN` — Fly.io access token
-- `FLY_ORG` — Fly.io organization slug (np. `personal`, albo własna nazwa org)
+- `FLY_ORG` — (opcjonalny) slug organizacji Fly; wymagany tylko, jeśli masz wiele orgów i chcesz wymusić konkretną
 
 License server (admin + portal seed on first deploy):
 - `LICENSE_ADMIN_TOKEN` — bearer token for JSON admin API
