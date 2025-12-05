@@ -6,35 +6,31 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Key Veilgate concepts such as routes, upstreams, policies, admin API and MCP tools.">
+        <meta name="description" content="Run unit + functional tests locally with one command, and install a pre-push hook.">
       
       
       
-        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/concepts/">
+        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/how-to/local-ci/">
       
       
-        <link rel="prev" href="../overview/">
-      
-      
-        <link rel="next" href="routes/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Core concepts - Veilgate Documentation</title>
+        <title>Local CI (pre-push checks) - Veilgate Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +49,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#core-concepts" class="md-skip">
+        <a href="#local-ci" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Core concepts
+              Local CI (pre-push checks)
             
           </span>
         </div>
@@ -217,7 +213,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../overview/" class="md-tabs__link">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -233,13 +229,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../concepts/" class="md-tabs__link">
           
   
   
@@ -259,7 +253,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../how-to/quickstart-docker-compose/" class="md-tabs__link">
+        <a href="../quickstart-docker-compose/" class="md-tabs__link">
           
   
   
@@ -279,7 +273,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/" class="md-tabs__link">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -299,7 +293,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../CONTRIBUTING-DOCS/" class="md-tabs__link">
+        <a href="../../CONTRIBUTING-DOCS/" class="md-tabs__link">
           
   
   
@@ -333,7 +327,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -415,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
   
   
@@ -447,31 +441,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -489,7 +478,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -504,19 +493,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
         
   
   
@@ -532,7 +512,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -545,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="routes/" class="md-nav__link">
+      <a href="../../concepts/routes/" class="md-nav__link">
         
   
   
@@ -573,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upstreams/" class="md-nav__link">
+      <a href="../../concepts/upstreams/" class="md-nav__link">
         
   
   
@@ -601,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="policies/" class="md-nav__link">
+      <a href="../../concepts/policies/" class="md-nav__link">
         
   
   
@@ -629,7 +608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="admin-api/" class="md-nav__link">
+      <a href="../../concepts/admin-api/" class="md-nav__link">
         
   
   
@@ -657,7 +636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mcp/" class="md-nav__link">
+      <a href="../../concepts/mcp/" class="md-nav__link">
         
   
   
@@ -744,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/quickstart-docker-compose/" class="md-nav__link">
+      <a href="../quickstart-docker-compose/" class="md-nav__link">
         
   
   
@@ -772,7 +751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -859,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -887,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -915,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/admin-api/" class="md-nav__link">
+      <a href="../../reference/admin-api/" class="md-nav__link">
         
   
   
@@ -943,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/mcp/" class="md-nav__link">
+      <a href="../../reference/mcp/" class="md-nav__link">
         
   
   
@@ -971,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/cli/" class="md-nav__link">
+      <a href="../../reference/cli/" class="md-nav__link">
         
   
   
@@ -1058,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING-DOCS/" class="md-nav__link">
+      <a href="../../CONTRIBUTING-DOCS/" class="md-nav__link">
         
   
   
@@ -1106,6 +1085,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-push-hook-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-push hook (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-exact-ci-workflow-locally-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run the exact CI workflow locally (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1124,16 +1144,45 @@
   
 
 
-<h1 id="core-concepts">Core concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h1>
-<p>This section explains the core building blocks of Veilgate and how they fit together.</p>
+<h1 id="local-ci">Local CI<a class="headerlink" href="#local-ci" title="Permanent link">&para;</a></h1>
+<p>This repo provides scripts and Make targets to run the same checks locally that CI runs.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Requirements:</p>
 <ul>
-<li><a href="routes/">Routes</a></li>
-<li><a href="upstreams/">Upstreams</a></li>
-<li><a href="policies/">Policies: auth &amp; rate limiting</a></li>
-<li><a href="licensing/">Enterprise licensing</a></li>
-<li><a href="admin-api/">Admin API &amp; dashboard</a></li>
-<li><a href="mcp/">MCP tools</a></li>
+<li>Go (&gt;= 1.23)</li>
+<li>Docker + docker compose</li>
+<li><code>curl</code>, <code>jq</code>, <code>unzip</code> (for functional tests)</li>
 </ul>
+<p>Run everything:</p>
+<div class="codehilite"><pre><span></span><code>make<span class="w"> </span>local-ci
+</code></pre></div>
+
+<p>This runs:</p>
+<ul>
+<li><code>go mod tidy</code></li>
+<li><code>go test ./...</code></li>
+<li>Build Docker images (alpine runtime)</li>
+<li><code>scripts/func-test.sh</code> (local images functional E2E)</li>
+<li><code>scripts/func-test-zip.sh</code> (release ZIP functional E2E)</li>
+</ul>
+<h2 id="pre-push-hook-optional">Pre-push hook (optional)<a class="headerlink" href="#pre-push-hook-optional" title="Permanent link">&para;</a></h2>
+<p>Install a Git pre-push hook to automatically run unit + functional tests before pushing:</p>
+<div class="codehilite"><pre><span></span><code>scripts/install-git-hooks.sh
+</code></pre></div>
+
+<p>On every <code>git push</code>, the hook runs:</p>
+<ul>
+<li><code>go test ./...</code></li>
+<li><code>scripts/func-test.sh</code></li>
+</ul>
+<p>If Docker is not available, it skips the functional test.</p>
+<h2 id="run-the-exact-ci-workflow-locally-optional">Run the exact CI workflow locally (optional)<a class="headerlink" href="#run-the-exact-ci-workflow-locally-optional" title="Permanent link">&para;</a></h2>
+<p>You can use <code>act</code> (https://github.com/nektos/act) to run GitHub Actions locally:</p>
+<div class="codehilite"><pre><span></span><code>act<span class="w"> </span>-j<span class="w"> </span>functional-test
+act<span class="w"> </span>-j<span class="w"> </span>functional-test-zip
+</code></pre></div>
+
+<p>Note: you may need to set up a compatible Docker runner image and install <code>jq</code>, <code>curl</code>, and <code>unzip</code> inside it.</p>
 
 
 
@@ -1186,10 +1235,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
     
   </body>

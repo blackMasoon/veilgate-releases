@@ -6,35 +6,31 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Key Veilgate concepts such as routes, upstreams, policies, admin API and MCP tools.">
+        <meta name="description" content="Run Veilgate + license server + demo upstream locally using docker-compose and a helper script.">
       
       
       
-        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/concepts/">
+        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/how-to/local-dev-stack/">
       
       
-        <link rel="prev" href="../overview/">
-      
-      
-        <link rel="next" href="routes/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Core concepts - Veilgate Documentation</title>
+        <title>Local dev stack (with license server) - Veilgate Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +49,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#core-concepts" class="md-skip">
+        <a href="#local-dev-stack" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Core concepts
+              Local dev stack (with license server)
             
           </span>
         </div>
@@ -217,7 +213,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../overview/" class="md-tabs__link">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -233,13 +229,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../concepts/" class="md-tabs__link">
           
   
   
@@ -259,7 +253,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../how-to/quickstart-docker-compose/" class="md-tabs__link">
+        <a href="../quickstart-docker-compose/" class="md-tabs__link">
           
   
   
@@ -279,7 +273,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/" class="md-tabs__link">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -299,7 +293,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../CONTRIBUTING-DOCS/" class="md-tabs__link">
+        <a href="../../CONTRIBUTING-DOCS/" class="md-tabs__link">
           
   
   
@@ -333,7 +327,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -415,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
   
   
@@ -447,31 +441,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -489,7 +478,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -504,19 +493,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
         
   
   
@@ -532,7 +512,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -545,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="routes/" class="md-nav__link">
+      <a href="../../concepts/routes/" class="md-nav__link">
         
   
   
@@ -573,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upstreams/" class="md-nav__link">
+      <a href="../../concepts/upstreams/" class="md-nav__link">
         
   
   
@@ -601,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="policies/" class="md-nav__link">
+      <a href="../../concepts/policies/" class="md-nav__link">
         
   
   
@@ -629,7 +608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="admin-api/" class="md-nav__link">
+      <a href="../../concepts/admin-api/" class="md-nav__link">
         
   
   
@@ -657,7 +636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="mcp/" class="md-nav__link">
+      <a href="../../concepts/mcp/" class="md-nav__link">
         
   
   
@@ -744,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/quickstart-docker-compose/" class="md-nav__link">
+      <a href="../quickstart-docker-compose/" class="md-nav__link">
         
   
   
@@ -772,7 +751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -859,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -887,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -915,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/admin-api/" class="md-nav__link">
+      <a href="../../reference/admin-api/" class="md-nav__link">
         
   
   
@@ -943,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/mcp/" class="md-nav__link">
+      <a href="../../reference/mcp/" class="md-nav__link">
         
   
   
@@ -971,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/cli/" class="md-nav__link">
+      <a href="../../reference/cli/" class="md-nav__link">
         
   
   
@@ -1058,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING-DOCS/" class="md-nav__link">
+      <a href="../../CONTRIBUTING-DOCS/" class="md-nav__link">
         
   
   
@@ -1106,6 +1085,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start the stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1124,15 +1144,57 @@
   
 
 
-<h1 id="core-concepts">Core concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h1>
-<p>This section explains the core building blocks of Veilgate and how they fit together.</p>
+<h1 id="local-dev-stack">Local dev stack<a class="headerlink" href="#local-dev-stack" title="Permanent link">&para;</a></h1>
+<p>This repository includes a helper script to run a complete local stack:</p>
 <ul>
-<li><a href="routes/">Routes</a></li>
-<li><a href="upstreams/">Upstreams</a></li>
-<li><a href="policies/">Policies: auth &amp; rate limiting</a></li>
-<li><a href="licensing/">Enterprise licensing</a></li>
-<li><a href="admin-api/">Admin API &amp; dashboard</a></li>
-<li><a href="mcp/">MCP tools</a></li>
+<li>License server (Ed25519 keys, issue/verify/revoke)</li>
+<li>Veilgate gateway (with license verification enabled)</li>
+<li>Demo upstream service</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Docker and docker compose</li>
+<li><code>curl</code> and <code>jq</code> on the host</li>
+</ul>
+<h2 id="start-the-stack">Start the stack<a class="headerlink" href="#start-the-stack" title="Permanent link">&para;</a></h2>
+<p>From the repo root:</p>
+<div class="codehilite"><pre><span></span><code>scripts/run-local-stack.sh
+</code></pre></div>
+
+<p>What it does:</p>
+<ul>
+<li>Builds images for <code>license-server</code>, <code>demo-upstream</code> and <code>veilgate</code></li>
+<li>Starts the license server on <code>localhost:9400</code></li>
+<li>Fetches the public key and issues a development license</li>
+<li>Writes <code>.env.license</code> with <code>VEILGATE_LICENSE_PUBKEY_B64</code></li>
+<li>Generates <code>dist/local/config.yaml</code> by injecting the license token</li>
+<li>Starts <code>demo-upstream</code> and <code>veilgate</code> with the generated config</li>
+</ul>
+<p>Test calls:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;X-API-Key: demo-secret-key&#39;</span><span class="w"> </span>http://localhost:8080/
+</code></pre></div>
+
+<p>License server endpoints:</p>
+<ul>
+<li><code>http://localhost:9400/pubkey</code></li>
+<li><code>POST http://localhost:9400/issue</code> (requires <code>LICENSE_ADMIN_TOKEN</code>, default <code>dev-admin-token</code>)</li>
+<li><code>POST http://localhost:9400/verify</code></li>
+<li><code>POST http://localhost:9400/revoke</code> (admin)</li>
+<li><code>http://localhost:9400/crl</code></li>
+</ul>
+<p>Admin portal:</p>
+<ul>
+<li>URL: <code>http://localhost:9400/portal</code></li>
+<li>Default user (dev): <code>admin</code> / <code>dev-portal-pass</code></li>
+</ul>
+<h2 id="customizing">Customizing<a class="headerlink" href="#customizing" title="Permanent link">&para;</a></h2>
+<p>Environment variables recognized by the script:</p>
+<ul>
+<li><code>ADMIN_TOKEN</code> – admin bearer for issuing licenses (default <code>dev-admin-token</code>)</li>
+<li><code>LICENSE_SUBJECT</code> – subject shown in issued licenses (default <code>Local Dev</code>)</li>
+<li><code>MAX_UPSTREAMS</code> / <code>MAX_ROUTES</code> – entitlements</li>
+<li><code>EXPIRES_DAYS</code> – validity period</li>
+<li><code>INSTANCE_ID</code> – binds the license to this gateway instance id</li>
 </ul>
 
 
@@ -1186,10 +1248,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
     
   </body>

@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.2.3
+    version: 0.2.4
 openapi: 3.0.0
 paths:
     /admin/auth/login:

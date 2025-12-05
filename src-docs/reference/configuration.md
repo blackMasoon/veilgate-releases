@@ -13,6 +13,7 @@ High‑level sections include:
 - `admin` – admin/metrics/dashboard listener.
 - `logging` – log level, format and outputs.
 - `metrics` – Prometheus metrics settings.
+- `license` – enterprise license token and options.
 - `upstreams` – upstream pools and their endpoints.
 - `routes` – route matchers, policies and upstream references.
 - `security` – API keys, JWT issuers and related options.
@@ -453,4 +454,24 @@ routes:
       scope: api_key
 ```
 
+### `license` – enterprise licensing
+
+Veilgate enforces basic demo limits when no valid license is provided:
+
+- Upstreams: max 1
+- Routes: max 3
+
+To enable full features, paste the issued license token:
+
+```yaml
+license:
+  key: "VEIL-1.<base64url-payload>.<base64url-signature>"
+  # optional instance binding and future online checks
+  instance_id: "prod-gw-eu-1"
+  server_url: "https://licenses.example.com"  # optional
+```
+
+Licenses are Ed25519-signed tokens that encode entitlements such as
+`max_upstreams` and `max_routes`, optional expiry, and optional bindings
+(`instance_id`, `domains[]`).
 
