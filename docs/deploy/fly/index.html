@@ -1178,8 +1178,8 @@
 <p>Both apps are configured as single-machine, scale-to-zero (auto-stop/auto-start) instances.</p>
 <h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>deploy/fly/veilgate.fly.toml</code> — Fly app config for gateway+portal (serves a minimal, license-free test config)</li>
-<li><code>deploy/fly/license.fly.toml</code> — Fly app config for license admin</li>
+<li><code>fly.gw.toml</code> — Fly app config for gateway+portal (root-level, poprawny kontekst builda)</li>
+<li><code>fly.license.toml</code> — Fly app config for license admin (root-level)</li>
 <li><code>examples/fly/veilgate.yaml</code> — Minimal test config (&lt;= 3 routes, 1 upstream)</li>
 <li><code>.github/workflows/fly-deploy.yml</code> — GitHub Actions workflow</li>
 </ul>

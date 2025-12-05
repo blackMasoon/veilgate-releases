@@ -9,8 +9,8 @@ Components:
 Both apps are configured as single-machine, scale-to-zero (auto-stop/auto-start) instances.
 
 ### Files
-- `deploy/fly/veilgate.fly.toml` — Fly app config for gateway+portal (serves a minimal, license-free test config)
-- `deploy/fly/license.fly.toml` — Fly app config for license admin
+- `fly.gw.toml` — Fly app config for gateway+portal (root-level, poprawny kontekst builda)
+- `fly.license.toml` — Fly app config for license admin (root-level)
 - `examples/fly/veilgate.yaml` — Minimal test config (<= 3 routes, 1 upstream)
 - `.github/workflows/fly-deploy.yml` — GitHub Actions workflow
 
