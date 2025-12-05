@@ -1187,6 +1187,7 @@
 <p>Set these in your GitHub repository settings → Secrets and variables → Actions:</p>
 <ul>
 <li><code>FLY_API_TOKEN</code> — Fly.io access token</li>
+<li><code>FLY_ORG</code> — Fly.io organization slug (np. <code>personal</code>, albo własna nazwa org)</li>
 </ul>
 <p>License server (admin + portal seed on first deploy):
 - <code>LICENSE_ADMIN_TOKEN</code> — bearer token for JSON admin API
@@ -1203,9 +1204,10 @@ If you want to validate enterprise limits, you can:
 2. Bake the token into a config file and point the Fly command to it (or add a new image variant that copies the licensed config).</p>
 <h3 id="access">Access<a class="headerlink" href="#access" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Gateway: <code>https://veilgate-test-gw.fly.dev/</code></li>
-<li>Admin/dashboard: <code>https://veilgate-test-gw.fly.dev:9090/dashboard</code> (login with VEILGATE_DEV_* credentials)</li>
-<li>License portal: <code>https://veilgate-test-license.fly.dev:9400/portal</code></li>
+<li>Domyślne nazwy aplikacji to <code>veilgate-test-gw</code> i <code>veilgate-test-license</code>. Możesz je nadpisać repozytoryjnymi Variables <code>FLY_GW_APP</code> i <code>FLY_LICENSE_APP</code>.</li>
+<li>Gateway: <code>https://&lt;GW_APP&gt;.fly.dev/</code></li>
+<li>Admin/dashboard: <code>https://&lt;GW_APP&gt;.fly.dev:9090/dashboard</code> (login z VEILGATE_DEV_*)</li>
+<li>License portal: <code>https://&lt;LICENSE_APP&gt;.fly.dev:9400/portal</code></li>
 </ul>
 <h3 id="scale-to-zero">Scale-to-zero<a class="headerlink" href="#scale-to-zero" title="Permanent link">&para;</a></h3>
 <p>Both apps in <code>fly.toml</code> have:

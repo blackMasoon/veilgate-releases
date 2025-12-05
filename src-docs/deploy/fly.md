@@ -18,6 +18,7 @@ Both apps are configured as single-machine, scale-to-zero (auto-stop/auto-start)
 Set these in your GitHub repository settings → Secrets and variables → Actions:
 
 - `FLY_API_TOKEN` — Fly.io access token
+- `FLY_ORG` — Fly.io organization slug (np. `personal`, albo własna nazwa org)
 
 License server (admin + portal seed on first deploy):
 - `LICENSE_ADMIN_TOKEN` — bearer token for JSON admin API
@@ -36,9 +37,10 @@ If you want to validate enterprise limits, you can:
 2. Bake the token into a config file and point the Fly command to it (or add a new image variant that copies the licensed config).
 
 ### Access
-- Gateway: `https://veilgate-test-gw.fly.dev/`
-- Admin/dashboard: `https://veilgate-test-gw.fly.dev:9090/dashboard` (login with VEILGATE_DEV_* credentials)
-- License portal: `https://veilgate-test-license.fly.dev:9400/portal`
+- Domyślne nazwy aplikacji to `veilgate-test-gw` i `veilgate-test-license`. Możesz je nadpisać repozytoryjnymi Variables `FLY_GW_APP` i `FLY_LICENSE_APP`.
+- Gateway: `https://<GW_APP>.fly.dev/`
+- Admin/dashboard: `https://<GW_APP>.fly.dev:9090/dashboard` (login z VEILGATE_DEV_*)
+- License portal: `https://<LICENSE_APP>.fly.dev:9400/portal`
 
 ### Scale-to-zero
 Both apps in `fly.toml` have:
@@ -47,4 +49,3 @@ Both apps in `fly.toml` have:
 - `min_machines_running = 0`
 
 This keeps costs minimal and wakes machines on incoming requests.
-
