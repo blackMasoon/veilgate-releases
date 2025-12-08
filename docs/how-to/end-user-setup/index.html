@@ -6,35 +6,31 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Practical step-by-step guides for installing, configuring and operating Veilgate.">
+        <meta name="description" content="Szczegółowy przewodnik krok po kroku dla użytkownika końcowego – pobranie paczki, konfiguracja, licencja, uruchomienie w Dockerze w dowolnej chmurze oraz weryfikacja.">
       
       
       
-        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/how-to/">
+        <link rel="canonical" href="https://blackmasoon.github.io/veilgate-releases/how-to/end-user-setup/">
       
       
-        <link rel="prev" href="quickstart-docker-compose/">
-      
-      
-        <link rel="next" href="../reference/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>How-to guides - Veilgate Documentation</title>
+        <title>Pełny setup Veilgate – od ZIP do uruchomienia w Dockerze (chmura) - Veilgate Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +49,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#howto-guides" class="md-skip">
+        <a href="#peny-setup-veilgate-krok-po-kroku" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-header__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -112,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How-to guides
+              Pełny setup Veilgate – od ZIP do uruchomienia w Dockerze (chmura)
             
           </span>
         </div>
@@ -217,7 +213,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../overview/" class="md-tabs__link">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -237,7 +233,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../concepts/" class="md-tabs__link">
+        <a href="../../concepts/" class="md-tabs__link">
           
   
   
@@ -253,13 +249,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="quickstart-docker-compose/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../quickstart-docker-compose/" class="md-tabs__link">
           
   
   
@@ -279,7 +273,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/" class="md-tabs__link">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -299,7 +293,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../CONTRIBUTING-DOCS/" class="md-tabs__link">
+        <a href="../../CONTRIBUTING-DOCS/" class="md-tabs__link">
           
   
   
@@ -333,7 +327,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
+    <a href="../.." title="Veilgate Documentation" class="md-nav__button md-logo" aria-label="Veilgate Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -415,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
   
   
@@ -502,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/" class="md-nav__link">
+      <a href="../../concepts/" class="md-nav__link">
         
   
   
@@ -530,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/routes/" class="md-nav__link">
+      <a href="../../concepts/routes/" class="md-nav__link">
         
   
   
@@ -558,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/upstreams/" class="md-nav__link">
+      <a href="../../concepts/upstreams/" class="md-nav__link">
         
   
   
@@ -586,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/policies/" class="md-nav__link">
+      <a href="../../concepts/policies/" class="md-nav__link">
         
   
   
@@ -614,7 +608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/admin-api/" class="md-nav__link">
+      <a href="../../concepts/admin-api/" class="md-nav__link">
         
   
   
@@ -642,7 +636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/mcp/" class="md-nav__link">
+      <a href="../../concepts/mcp/" class="md-nav__link">
         
   
   
@@ -674,31 +668,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -716,7 +705,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -734,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-docker-compose/" class="md-nav__link">
+      <a href="../quickstart-docker-compose/" class="md-nav__link">
         
   
   
@@ -759,19 +748,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -787,7 +767,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -859,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -887,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -915,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/admin-api/" class="md-nav__link">
+      <a href="../../reference/admin-api/" class="md-nav__link">
         
   
   
@@ -943,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/mcp/" class="md-nav__link">
+      <a href="../../reference/mcp/" class="md-nav__link">
         
   
   
@@ -971,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/cli/" class="md-nav__link">
+      <a href="../../reference/cli/" class="md-nav__link">
         
   
   
@@ -1058,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING-DOCS/" class="md-nav__link">
+      <a href="../../CONTRIBUTING-DOCS/" class="md-nav__link">
         
   
   
@@ -1106,6 +1085,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-wymagania-wstepne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Wymagania wstępne
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pobranie-paczki-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Pobranie paczki (ZIP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pozyskanie-i-ustawienie-licencji" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Pozyskanie i ustawienie licencji
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1124,16 +1144,149 @@
   
 
 
-<h1 id="howto-guides">How‑to guides<a class="headerlink" href="#howto-guides" title="Permanent link">&para;</a></h1>
-<p>Start here for practical, task‑oriented guides:</p>
+<h1 id="peny-setup-veilgate-krok-po-kroku">Pełny setup Veilgate – krok po kroku<a class="headerlink" href="#peny-setup-veilgate-krok-po-kroku" title="Permanent link">&para;</a></h1>
+<p>Ten przewodnik przeprowadzi Cię przez cały proces uruchomienia Veilgate:
+- pobranie binariów (ZIP) z wydań,
+- przygotowanie i weryfikację licencji,
+- wstępną konfigurację YAML,
+- uruchomienie w Dockerze (lokalnie lub w dowolnej chmurze),
+- podstawową diagnostykę i dobre praktyki bezpieczeństwa.</p>
+<blockquote>
+<p>Uwaga o licencjach: Veilgate wymaga ważnej licencji dla konfiguracji wykraczających poza tryb demo.
+W sprawie licencji (indywidualne warunki) skontaktuj się: adam@veilgate.tech</p>
+</blockquote>
+<h2 id="1-wymagania-wstepne">1) Wymagania wstępne<a class="headerlink" href="#1-wymagania-wstepne" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="quickstart-docker-compose/">Quickstart: Docker + docker-compose</a></li>
-<li><a href="end-user-setup/">Pełny setup: od ZIP do Docker w chmurze</a></li>
-<li><a href="dashboard-guide/">Dashboard guide</a></li>
-<li><a href="migrating-from-tyk/">Migrating from Tyk</a></li>
-<li>(Planned) <strong>Securing routes with API keys and JWT</strong></li>
-<li>(Planned) <strong>Rate limiting common scenarios</strong></li>
-<li>(Planned) <strong>Exposing an API as an MCP tool</strong></li>
+<li>System z Docker / Docker Desktop lub środowiskiem uruchomieniowym kontenerów (ECS/Fargate, GKE, AKS, K8s, Nomad, itp.).</li>
+<li><code>curl</code> i <code>jq</code> (do szybkich testów i inspekcji JSON).</li>
+<li>Otwarty ruch do portów publicznych (domyślnie 80/443 dla gateway, 9090 dla panelu admin) – w chmurze zwykle za load balancerem z TLS.</li>
+</ul>
+<h2 id="2-pobranie-paczki-zip">2) Pobranie paczki (ZIP)<a class="headerlink" href="#2-pobranie-paczki-zip" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Przejdź do strony wydań Veilgate i pobierz najnowszą paczkę ZIP dla swojej platformy.</li>
+<li>Rozpakuj ZIP – w katalogu znajdziesz binarium <code>veilgate</code> i przykładowe konfiguracje w <code>config/</code>.</li>
+</ol>
+<p>Alternatywa: możesz użyć gotowego obrazu Docker dostarczanego wraz z wydaniem.</p>
+<h2 id="3-pozyskanie-i-ustawienie-licencji">3) Pozyskanie i ustawienie licencji<a class="headerlink" href="#3-pozyskanie-i-ustawienie-licencji" title="Permanent link">&para;</a></h2>
+<p>Veilgate egzekwuje limity w trybie demo (np. max 1 upstream i 3 trasy). Aby odblokować pełną funkcjonalność:</p>
+<ul>
+<li>Skontaktuj się w sprawie licencji: adam@veilgate.tech (zalecane, warunki są indywidualne).</li>
+<li>Po otrzymaniu tokenu licencyjnego (zaczyna się od <code>VEIL-1.</code>) masz dwie opcje konfiguracji:</li>
+<li>
+<p>W pliku YAML (sekcja <code>license:</code>):</p>
+<p><code>yaml
+license:
+  key: "VEIL-1.&lt;twój-token&gt;"
+  instance_id: "moja-instancja-gateway"
+  # server_url: "https://licenses.twojadomena"  # opcjonalnie, jeśli korzystasz z walidacji online</code></p>
+</li>
+<li>
+<p>Jako zmienne środowiskowe (wygodne w chmurze):</p>
+<p>```bash
+export VEILGATE_LICENSE_KEY="VEIL-1.<twój-token>"
+export VEILGATE_LICENSE_INSTANCE_ID="moja-instancja-gateway"</p>
+<h1 id="export-veilgate_license_server_urlhttpslicensestwojadomena">export VEILGATE_LICENSE_SERVER_URL="https://licenses.twojadomena"<a class="headerlink" href="#export-veilgate_license_server_urlhttpslicensestwojadomena" title="Permanent link">&para;</a></h1>
+<p>```</p>
+</li>
+</ul>
+<p>Veilgate automatycznie odczyta powyższe zmienne w czasie startu.</p>
+<h2 id="4-minimalna-konfiguracja-yaml">4) Minimalna konfiguracja YAML<a class="headerlink" href="#4-minimalna-konfiguracja-yaml" title="Permanent link">&para;</a></h2>
+<p>Plik <code>veilgate.yaml</code> (możesz go nazwać inaczej i wskazać przez <code>-config ...</code>).</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">listen_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:8080&quot;</span>
+
+<span class="nt">admin</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">listen_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:9090&quot;</span>
+
+<span class="nt">logging</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;info&quot;</span>
+
+<span class="nt">metrics</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Przykładowe zabezpieczenie kluczem API na trasie</span>
+<span class="nt">security</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">api_keys</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;client-1&quot;</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;super-tajny-klucz&quot;</span>
+
+<span class="nt">upstreams</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend-api&quot;</span>
+<span class="w">    </span><span class="nt">endpoints</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.twojadomena&quot;</span>
+
+<span class="nt">routes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;root&quot;</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span>
+<span class="w">    </span><span class="nt">upstream_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend-api&quot;</span>
+<span class="w">    </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<p>W produkcji trasy zwykle rozszerzysz o CORS, limity, przepisywanie ścieżek, itp. – patrz „Reference: configuration”.</p>
+<h2 id="5-uruchomienie-w-dockerze-lokalnie-i-w-chmurze">5) Uruchomienie w Dockerze (lokalnie i w chmurze)<a class="headerlink" href="#5-uruchomienie-w-dockerze-lokalnie-i-w-chmurze" title="Permanent link">&para;</a></h2>
+<h3 id="opcja-a-docker-run">Opcja A – docker run<a class="headerlink" href="#opcja-a-docker-run" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">9090</span>:9090<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">VEILGATE_LICENSE_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$VEILGATE_LICENSE_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">VEILGATE_LICENSE_INSTANCE_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$VEILGATE_LICENSE_INSTANCE_ID</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/veilgate.yaml:/etc/veilgate/config.yaml:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/your-org/veilgate:&lt;wersja&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/app/veilgate<span class="w"> </span>serve<span class="w"> </span>-config<span class="w"> </span>/etc/veilgate/config.yaml
+</code></pre></div>
+
+<p>W chmurze zamień mapowanie portów na odpowiednią definicję usługi / LB. Zalecamy TLS na warstwie LB (443) i HTTP między LB a kontenerem.</p>
+<h3 id="opcja-b-docker-compose">Opcja B – docker-compose<a class="headerlink" href="#opcja-b-docker-compose" title="Permanent link">&para;</a></h3>
+<p><code>docker-compose.yml</code> (fragment):</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.9&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">veilgate</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/your-org/veilgate:&lt;wersja&gt;</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;8080:8080&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;9090:9090&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">VEILGATE_LICENSE_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VEILGATE_LICENSE_KEY}</span>
+<span class="w">      </span><span class="nt">VEILGATE_LICENSE_INSTANCE_ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VEILGATE_LICENSE_INSTANCE_ID}</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./veilgate.yaml:/etc/veilgate/config.yaml:ro</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/app/veilgate&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;serve&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-config&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;/etc/veilgate/config.yaml&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p>Uruchom:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+
+<h3 id="opcja-c-dowolna-chmura-orkiestrator">Opcja C – dowolna chmura / orkiestrator<a class="headerlink" href="#opcja-c-dowolna-chmura-orkiestrator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Zbuduj/pushnij obraz do rejestru (ECR/GCR/ACR/ghcr.io).</li>
+<li>Zadeklaruj zmienne środowiskowe licencji i mount z konfiguracją YAML.</li>
+<li>Wystaw gateway za pomocą LB (HTTPS 443) – admin najlepiej za prywatnym LB/VPN lub zabezpieczony (w Veilgate: sesje admin i rate limit na /admin/*).</li>
+</ul>
+<h2 id="6-weryfikacja-dziaania">6) Weryfikacja działania<a class="headerlink" href="#6-weryfikacja-dziaania" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Readiness admin (zalecane HTTPS przez LB)</span>
+curl<span class="w"> </span>-i<span class="w"> </span>http://&lt;host&gt;:9090/readyz
+
+<span class="c1"># Trasa chroniona API key (przykład)</span>
+curl<span class="w"> </span>-i<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-API-Key: super-tajny-klucz&quot;</span><span class="w"> </span>https://&lt;host&gt;/
+</code></pre></div>
+
+<p>Jeśli używasz TLS na LB, pamiętaj o właściwych hostach/SNI przy rozmowie z backendami (opcja <code>proxy.tls</code> lub <code>preserve_host_header</code>).</p>
+<h2 id="7-najczestsze-problemy-i-rozwiazania">7) Najczęstsze problemy i rozwiązania<a class="headerlink" href="#7-najczestsze-problemy-i-rozwiazania" title="Permanent link">&para;</a></h2>
+<ul>
+<li>502/504: <code>timeout awaiting response headers</code> – sprawdź dostępność i opóźnienia upstream, ewentualnie zwiększ <code>server.http.response_header_timeout_seconds</code> lub per-route <code>proxy.timeouts</code>.</li>
+<li>Błędy TLS do upstream: skonfiguruj <code>proxy.tls.insecure_skip_verify: false</code> (domyślnie) i/lub SNI (<code>preserve_host_header: true</code>), w razie prywatnego CA dostarcz trust store w obrazie.</li>
+<li>Komunikat o licencji: upewnij się, że <code>license.key</code> (lub <code>VEILGATE_LICENSE_KEY</code>) i <code>instance_id</code> są ustawione; rozmiar <code>routes</code>/<code>upstreams</code> musi mieścić się w limitach licencji.</li>
+</ul>
+<h2 id="8-bezpieczenstwo-i-dobre-praktyki">8) Bezpieczeństwo i dobre praktyki<a class="headerlink" href="#8-bezpieczenstwo-i-dobre-praktyki" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nie wystawiaj publicznie admina na 9090 bez ochrony – użyj prywatnego LB/VPN lub kontrolowanego dostępu.</li>
+<li>Konfiguracje wrażliwe trzymaj w zmiennych środowiskowych / managerze sekretów, nie w repo.</li>
+<li>Stosuj <code>min_machines_running</code> i autoscaling wg potrzeb (dla platform typu Fly/K8s), ale pamiętaj o cold‑startach.</li>
+</ul>
+<h2 id="9-gdzie-po-pomoc-i-licencje">9) Gdzie po pomoc i licencję<a class="headerlink" href="#9-gdzie-po-pomoc-i-licencje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Kontakt w sprawie licencji (zalecane, indywidualne ustalenia):</li>
+<li>adam@veilgate.tech</li>
+<li>Zgłoszenia techniczne / wsparcie wdrożeniowe: ten sam adres lub kanał projektu.</li>
 </ul>
 
 
@@ -1187,10 +1340,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
     
   </body>
