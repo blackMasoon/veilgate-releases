@@ -31,10 +31,13 @@ Veilgate admin (dashboard login seed on first deploy):
 - `VEILGATE_DEV_ADMIN_PASSWORD` — initial admin password
 - `VEILGATE_ADMIN_SESSION_SECRET` — session secret for admin auth
 
-Note: the gateway test config intentionally stays within demo limits (no license required).
-If you want to validate enterprise limits, you can:
-1. Issue a license via the license server (`POST /issue` with `LICENSE_ADMIN_TOKEN`)
-2. Bake the token into a config file and point the Fly command to it (or add a new image variant that copies the licensed config).
+The deployment workflow automatically issues a test license for the Veilgate instance after deploying the license server:
+1. Waits for the license server to become ready
+2. Fetches the public key from the license server
+3. Issues a license with enterprise limits (100 upstreams, 1000 routes, 365 days validity)
+4. Configures the Veilgate instance with the license via secrets
+
+The license is bound to the instance ID matching the app name (default: `veilgate-test-gw`) and includes all enterprise features (jwt, ratelimit, oauth2, mtls).
 
 ### Access
 - Domyślne nazwy aplikacji to `veilgate-test-gw` i `veilgate-test-license`. Możesz je nadpisać repozytoryjnymi Variables `FLY_GW_APP` i `FLY_LICENSE_APP`.
