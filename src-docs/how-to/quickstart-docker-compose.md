@@ -123,7 +123,7 @@ flows through Veilgate.
 
 #### Initial admin user & dashboard login
 
-To use the built‑in dashboard for managing routes, upstreams and API keys, you
+To use the built‑in dashboard for managing routes, APIs and API keys, you
 need an **admin user**. There are two recommended ways to bootstrap it:
 
 1. **Via configuration file (hash only, no plaintext):**

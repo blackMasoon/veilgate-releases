@@ -23,7 +23,7 @@ If admin authentication is configured, you'll be prompted to log in first.
 The Overview page displays:
 
 - **Gateway status**: Health and readiness indicators
-- **Quick stats**: Total routes, upstreams, and active API keys
+- **Quick stats**: Total routes, APIs, and active API keys
 - **Top routes**: Routes with the most traffic
 - **Top API keys**: Most active API keys by request count
 
@@ -43,7 +43,7 @@ The routes table displays:
 | Method | HTTP method(s) matched |
 | Host | Optional host matcher |
 | Path | URL path pattern |
-| Upstream | Target backend pool |
+| API | Target backend API |
 | Auth | Authentication requirements |
 | Rate Limit | Rate limiting configuration |
 | Features | Active features (CORS, cache, rewrite, etc.) |
@@ -55,7 +55,7 @@ The routes table displays:
    - **ID**: Unique identifier (e.g., `orders-api-v2`)
    - **Method**: HTTP method or `*` for all
    - **Path**: URL pattern (e.g., `/api/v1/*`)
-   - **Upstream ID**: Target backend pool
+   - **API ID**: Target backend API
 3. Configure optional features:
    - **Rewrite**: Path prefix stripping/adding
    - **CORS**: Cross-origin settings
@@ -91,38 +91,38 @@ The Features column shows pills for active features:
 - **proxy**: Custom proxy settings
 - **IP filter**: IP-based access control
 
-## Upstreams view
+## APIs view
 
-Manage backend server pools in the Upstreams view.
+Manage backend API services in the APIs view.
 
-### Viewing upstreams
+### Viewing APIs
 
 The table shows:
 
 | Column | Description |
 |--------|-------------|
-| ID | Unique upstream identifier |
-| Endpoints | Backend server URLs |
+| API ID | Unique API identifier |
+| Target URLs | Backend server URLs |
 
-### Creating an upstream
+### Creating an API
 
-1. Click **Add upstream**
-2. Enter the **ID**
-3. Add endpoint URLs (one per line)
-4. Click **Create upstream**
+1. Click **Add API**
+2. Enter the **API ID**
+3. Add target URLs (one per line)
+4. Click **Create API**
 
-### Editing an upstream
+### Editing an API
 
-1. Click **Edit** next to the upstream
-2. Modify endpoint URLs
+1. Click **Edit** next to the API
+2. Modify target URLs
 3. Click **Save changes**
 
-### Deleting an upstream
+### Deleting an API
 
-1. Click **Delete** next to the upstream
+1. Click **Delete** next to the API
 2. Confirm the deletion
 
-Note: You cannot delete an upstream that is referenced by routes.
+Note: You cannot delete an API that is referenced by routes.
 
 ## Policies view
 

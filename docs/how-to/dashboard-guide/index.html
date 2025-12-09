@@ -1186,22 +1186,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upstreams-view" class="md-nav__link">
+  <a href="#apis-view" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Upstreams view
+        APIs view
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Upstreams view">
+    <nav class="md-nav" aria-label="APIs view">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#viewing-upstreams" class="md-nav__link">
+  <a href="#viewing-apis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Viewing upstreams
+        Viewing APIs
       
     </span>
   </a>
@@ -1209,10 +1209,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#creating-an-upstream" class="md-nav__link">
+  <a href="#creating-an-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating an upstream
+        Creating an API
       
     </span>
   </a>
@@ -1220,10 +1220,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#editing-an-upstream" class="md-nav__link">
+  <a href="#editing-an-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Editing an upstream
+        Editing an API
       
     </span>
   </a>
@@ -1231,10 +1231,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deleting-an-upstream" class="md-nav__link">
+  <a href="#deleting-an-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deleting an upstream
+        Deleting an API
       
     </span>
   </a>
@@ -1579,7 +1579,7 @@ managing routes, and configuring security policies.</p>
 <p>The Overview page displays:</p>
 <ul>
 <li><strong>Gateway status</strong>: Health and readiness indicators</li>
-<li><strong>Quick stats</strong>: Total routes, upstreams, and active API keys</li>
+<li><strong>Quick stats</strong>: Total routes, APIs, and active API keys</li>
 <li><strong>Top routes</strong>: Routes with the most traffic</li>
 <li><strong>Top API keys</strong>: Most active API keys by request count</li>
 </ul>
@@ -1613,8 +1613,8 @@ managing routes, and configuring security policies.</p>
 <td>URL path pattern</td>
 </tr>
 <tr>
-<td>Upstream</td>
-<td>Target backend pool</td>
+<td>API</td>
+<td>Target backend API</td>
 </tr>
 <tr>
 <td>Auth</td>
@@ -1637,7 +1637,7 @@ managing routes, and configuring security policies.</p>
 <li><strong>ID</strong>: Unique identifier (e.g., <code>orders-api-v2</code>)</li>
 <li><strong>Method</strong>: HTTP method or <code>*</code> for all</li>
 <li><strong>Path</strong>: URL pattern (e.g., <code>/api/v1/*</code>)</li>
-<li><strong>Upstream ID</strong>: Target backend pool</li>
+<li><strong>API ID</strong>: Target backend API</li>
 <li>Configure optional features:</li>
 <li><strong>Rewrite</strong>: Path prefix stripping/adding</li>
 <li><strong>CORS</strong>: Cross-origin settings</li>
@@ -1670,9 +1670,9 @@ managing routes, and configuring security policies.</p>
 <li><strong>proxy</strong>: Custom proxy settings</li>
 <li><strong>IP filter</strong>: IP-based access control</li>
 </ul>
-<h2 id="upstreams-view">Upstreams view<a class="headerlink" href="#upstreams-view" title="Permanent link">&para;</a></h2>
-<p>Manage backend server pools in the Upstreams view.</p>
-<h3 id="viewing-upstreams">Viewing upstreams<a class="headerlink" href="#viewing-upstreams" title="Permanent link">&para;</a></h3>
+<h2 id="apis-view">APIs view<a class="headerlink" href="#apis-view" title="Permanent link">&para;</a></h2>
+<p>Manage backend API services in the APIs view.</p>
+<h3 id="viewing-apis">Viewing APIs<a class="headerlink" href="#viewing-apis" title="Permanent link">&para;</a></h3>
 <p>The table shows:</p>
 <table>
 <thead>
@@ -1683,34 +1683,34 @@ managing routes, and configuring security policies.</p>
 </thead>
 <tbody>
 <tr>
-<td>ID</td>
-<td>Unique upstream identifier</td>
+<td>API ID</td>
+<td>Unique API identifier</td>
 </tr>
 <tr>
-<td>Endpoints</td>
+<td>Target URLs</td>
 <td>Backend server URLs</td>
 </tr>
 </tbody>
 </table>
-<h3 id="creating-an-upstream">Creating an upstream<a class="headerlink" href="#creating-an-upstream" title="Permanent link">&para;</a></h3>
+<h3 id="creating-an-api">Creating an API<a class="headerlink" href="#creating-an-api" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Click <strong>Add upstream</strong></li>
-<li>Enter the <strong>ID</strong></li>
-<li>Add endpoint URLs (one per line)</li>
-<li>Click <strong>Create upstream</strong></li>
+<li>Click <strong>Add API</strong></li>
+<li>Enter the <strong>API ID</strong></li>
+<li>Add target URLs (one per line)</li>
+<li>Click <strong>Create API</strong></li>
 </ol>
-<h3 id="editing-an-upstream">Editing an upstream<a class="headerlink" href="#editing-an-upstream" title="Permanent link">&para;</a></h3>
+<h3 id="editing-an-api">Editing an API<a class="headerlink" href="#editing-an-api" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Click <strong>Edit</strong> next to the upstream</li>
-<li>Modify endpoint URLs</li>
+<li>Click <strong>Edit</strong> next to the API</li>
+<li>Modify target URLs</li>
 <li>Click <strong>Save changes</strong></li>
 </ol>
-<h3 id="deleting-an-upstream">Deleting an upstream<a class="headerlink" href="#deleting-an-upstream" title="Permanent link">&para;</a></h3>
+<h3 id="deleting-an-api">Deleting an API<a class="headerlink" href="#deleting-an-api" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Click <strong>Delete</strong> next to the upstream</li>
+<li>Click <strong>Delete</strong> next to the API</li>
 <li>Confirm the deletion</li>
 </ol>
-<p>Note: You cannot delete an upstream that is referenced by routes.</p>
+<p>Note: You cannot delete an API that is referenced by routes.</p>
 <h2 id="policies-view">Policies view<a class="headerlink" href="#policies-view" title="Permanent link">&para;</a></h2>
 <p>The Policies view shows security configuration and allows API key management.</p>
 <h3 id="api-keys-section">API Keys section<a class="headerlink" href="#api-keys-section" title="Permanent link">&para;</a></h3>
