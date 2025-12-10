@@ -2,106 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/CONTRIBUTING-DOCS/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/QUICKSTART/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/admin-api/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/licensing/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/mcp/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/policies/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/routes/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/concepts/upstreams/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/deploy/fly/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/dashboard-guide/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/end-user-setup/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/functional-tests/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/local-ci/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/local-dev-stack/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/migrating-from-tyk/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/how-to/quickstart-docker-compose/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/overview/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/admin-api/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/changelog/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/cli/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/configuration/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/mcp/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
     <url>
          <loc>https://blackmasoon.github.io/veilgate-releases/reference/performance/</loc>
-         <lastmod>2025-12-09</lastmod>
+         <lastmod>2025-12-10</lastmod>
     </url>
 </urlset>
