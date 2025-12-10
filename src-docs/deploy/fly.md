@@ -45,6 +45,13 @@ The license is bound to the instance ID matching the app name (default: `veilgat
 - Admin/dashboard: `https://<GW_APP>.fly.dev:9090/dashboard` (login z VEILGATE_DEV_*)
 - License portal: `https://<LICENSE_APP>.fly.dev:9400/portal`
 
+### Persistence
+- Both apps mount Fly volumes under `/data`:
+  - `veilgate_data` for the gateway (persists the admin store and runtime config).
+  - `veilgate_license_data` for the license-server (persists the BoltDB file).
+- The gateway saves mutations to `VEILGATE_CONFIG_PERSIST_PATH` (default `/data/veilgate.runtime.yaml`) and keeps admin users in `VEILGATE_ADMIN_STORE_PATH` (default `/data/admin-users.db`).
+- The `fly-deploy.yml` workflow automatically creates required volumes before deploy so changes made via the Admin API or license portal survive restarts/redeployments.
+
 ### Scale-to-zero
 Both apps in `fly.toml` have:
 - `auto_stop_machines = "stop"`

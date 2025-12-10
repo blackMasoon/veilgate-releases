@@ -1133,6 +1133,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#scale-to-zero" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1210,6 +1221,14 @@
 <li>Gateway: <code>https://&lt;GW_APP&gt;.fly.dev/</code></li>
 <li>Admin/dashboard: <code>https://&lt;GW_APP&gt;.fly.dev:9090/dashboard</code> (login z VEILGATE_DEV_*)</li>
 <li>License portal: <code>https://&lt;LICENSE_APP&gt;.fly.dev:9400/portal</code></li>
+</ul>
+<h3 id="persistence">Persistence<a class="headerlink" href="#persistence" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Both apps mount Fly volumes under <code>/data</code>:</li>
+<li><code>veilgate_data</code> for the gateway (persists the admin store and runtime config).</li>
+<li><code>veilgate_license_data</code> for the license-server (persists the BoltDB file).</li>
+<li>The gateway saves mutations to <code>VEILGATE_CONFIG_PERSIST_PATH</code> (default <code>/data/veilgate.runtime.yaml</code>) and keeps admin users in <code>VEILGATE_ADMIN_STORE_PATH</code> (default <code>/data/admin-users.db</code>).</li>
+<li>The <code>fly-deploy.yml</code> workflow automatically creates required volumes before deploy so changes made via the Admin API or license portal survive restarts/redeployments.</li>
 </ul>
 <h3 id="scale-to-zero">Scale-to-zero<a class="headerlink" href="#scale-to-zero" title="Permanent link">&para;</a></h3>
 <p>Both apps in <code>fly.toml</code> have:
