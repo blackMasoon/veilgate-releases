@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.2.35
+    version: 0.2.36
 openapi: 3.0.0
 paths:
     /admin/auth/login:
@@ -45,6 +45,15 @@ paths:
                 "200":
                     description: Successful response.
             summary: List policies
+            tags:
+                - admin
+        put:
+            description: Updates security and rate-limit policies configured for the gateway.
+            operationId: putAdminPolicies
+            responses:
+                "200":
+                    description: Successful response.
+            summary: Update policies
             tags:
                 - admin
     /admin/routes:
