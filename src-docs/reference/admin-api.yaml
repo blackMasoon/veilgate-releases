@@ -1,7 +1,7 @@
 info:
     description: JSON/HTTP API exposed by the Veilgate admin server for operators and automation.
     title: Veilgate Admin API
-    version: 0.2.40
+    version: 0.2.41
 openapi: 3.0.0
 paths:
     /admin/auth/login:
@@ -96,7 +96,7 @@ paths:
                 - admin
     /admin/security/api-keys:
         get:
-            description: Returns API keys managed via the admin API, including basic metadata.
+            description: Returns API keys managed via the admin API, including basic metadata and per-key policies.
             operationId: getAdminAPIKeys
             responses:
                 "200":
@@ -106,7 +106,7 @@ paths:
                 - admin
                 - security
         post:
-            description: Generates a new API key, returns it once, and applies it to the running configuration.
+            description: Generates a new API key, returns it once, and applies it to the running configuration with an optional per-key policy.
             operationId: postAdminAPIKeys
             responses:
                 "200":
@@ -127,7 +127,7 @@ paths:
                 - admin
                 - security
         put:
-            description: Updates metadata or active status of an existing API key identified by ID.
+            description: Updates metadata, policy, or active status of an existing API key identified by ID.
             operationId: putAdminAPIKey
             responses:
                 "200":

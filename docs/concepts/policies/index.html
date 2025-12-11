@@ -1227,7 +1227,10 @@ Tyk setups we are replacing:</p>
   needs to honor a legacy header (<code>Api-key</code>, <code>X-Customer-Key</code>, etc.), override
   it per route via <code>routes[].auth.api_key_header_name</code>. The dashboard now
   surfaces both the global default and per-route overrides so operators can
-  confirm exactly what the gateway expects.</li>
+  confirm exactly what the gateway expects. Keys created via the admin API can
+  optionally carry a <strong>per-key policy</strong>: a rate limit bucket (RPS/burst) and
+  static claims. Claims are forwarded to upstreams as <code>X-VG-Claim-&lt;key&gt;: &lt;value&gt;</code>
+  headers to mimic Tyk’s key-scoped metadata.</li>
 <li><strong>JWT</strong> – tokens issued by configurable providers. Veilgate supports HS256,
   RS256 with a local PEM, and RS256 via JWKS discovery. JWKS issuers declare a
   <code>jwks_url</code> and a positive <code>jwks_cache_ttl_seconds</code>; the gateway fetches and
