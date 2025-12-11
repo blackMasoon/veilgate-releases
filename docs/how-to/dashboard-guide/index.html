@@ -1270,6 +1270,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#defaults-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defaults section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#jwt-issuers-section" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1712,13 +1723,18 @@ managing routes, and configuring security policies.</p>
 </ol>
 <p>Note: You cannot delete an API that is referenced by routes.</p>
 <h2 id="policies-view">Policies view<a class="headerlink" href="#policies-view" title="Permanent link">&para;</a></h2>
-<p>The Policies view shows security configuration and allows API key management.</p>
+<p>The Policies view manages gateway-wide authentication defaults, the fallback rate limit, and the credentials/routes can reference (API keys and JWT issuers). Routes can override these defaults per route, but they inherit them when nothing is set locally.</p>
 <h3 id="api-keys-section">API Keys section<a class="headerlink" href="#api-keys-section" title="Permanent link">&para;</a></h3>
-<p>Displays configured API keys with:</p>
+<p>Displays configured API keys (both config-defined and generated in the UI) with:</p>
 <ul>
 <li>ID and label</li>
 <li>Active/inactive status</li>
-<li>Default header name (global setting)</li>
+<li>Default header name (global setting used by API key auth)</li>
+</ul>
+<h3 id="defaults-section">Defaults section<a class="headerlink" href="#defaults-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Global API key header used when routes enable API-key auth</li>
+<li>Default rate limit applied when a route has no per-route limit configured</li>
 </ul>
 <h3 id="jwt-issuers-section">JWT Issuers section<a class="headerlink" href="#jwt-issuers-section" title="Permanent link">&para;</a></h3>
 <p>Shows configured JWT providers:</p>
@@ -1729,6 +1745,7 @@ managing routes, and configuring security policies.</p>
 <li>JWKS URL and cache TTL (for JWKS)</li>
 </ul>
 <h3 id="managing-api-keys">Managing API keys<a class="headerlink" href="#managing-api-keys" title="Permanent link">&para;</a></h3>
+<p>API keys are credentials, not policies. Use them when a route requires API key auth; clients must send the key in the configured header.</p>
 <h4 id="generating-a-new-key">Generating a new key<a class="headerlink" href="#generating-a-new-key" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Optionally enter a <strong>Label</strong></li>

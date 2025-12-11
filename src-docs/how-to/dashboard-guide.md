@@ -126,15 +126,20 @@ Note: You cannot delete an API that is referenced by routes.
 
 ## Policies view
 
-The Policies view shows security configuration and allows API key management.
+The Policies view manages gateway-wide authentication defaults, the fallback rate limit, and the credentials/routes can reference (API keys and JWT issuers). Routes can override these defaults per route, but they inherit them when nothing is set locally.
 
 ### API Keys section
 
-Displays configured API keys with:
+Displays configured API keys (both config-defined and generated in the UI) with:
 
 - ID and label
 - Active/inactive status
-- Default header name (global setting)
+- Default header name (global setting used by API key auth)
+
+### Defaults section
+
+- Global API key header used when routes enable API-key auth
+- Default rate limit applied when a route has no per-route limit configured
 
 ### JWT Issuers section
 
@@ -146,6 +151,8 @@ Shows configured JWT providers:
 - JWKS URL and cache TTL (for JWKS)
 
 ### Managing API keys
+
+API keys are credentials, not policies. Use them when a route requires API key auth; clients must send the key in the configured header.
 
 #### Generating a new key
 
