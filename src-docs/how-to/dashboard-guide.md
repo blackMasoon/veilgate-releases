@@ -124,6 +124,17 @@ The table shows:
 
 Note: You cannot delete an API that is referenced by routes.
 
+### Managing API Routes
+
+From the API Detail View, you can manage routes specifically for that API:
+
+1. Click on an API ID to open the detail view
+2. Switch to the **Routes** tab
+3. You can perform the following actions:
+   - **Create Route**: Click **Create Route** to add a new route. The "API ID" will be automatically set to the current API.
+   - **Edit Route**: Click **Edit** next to a route to modify its configuration.
+   - **Delete Route**: Click **Delete** to remove a route.
+
 ## Policies view
 
 The Policies view manages gateway-wide authentication defaults, the fallback rate limit, and the credentials/routes can reference (API keys and JWT issuers). Routes can override these defaults per route, but they inherit them when nothing is set locally.
